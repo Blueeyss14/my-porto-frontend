@@ -1,5 +1,8 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 @theme {
   --color-homeBg: #F5F7FA;
   --color-greenBtn: #4CAF4F;
+ --font-custom: "Montserrat", sans-serif;
 }

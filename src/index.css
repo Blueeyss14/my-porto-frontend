@@ -1,1 +1,5 @@
 @import "tailwindcss";
+@theme {
+  --color-homeBg: #F5F7FA;
+  --color-greenBtn: #4CAF4F;
+}

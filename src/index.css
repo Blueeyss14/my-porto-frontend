@@ -1,8 +1,25 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import "tailwindcss";
 
 @theme {
-  --color-homeBg: #F5F7FA;
+  --color-homeBg: #fafaff;
+  --color-homeBg2: #dadada;
   --color-greenBtn: #4CAF4F;
  --font-custom: "Montserrat", sans-serif;
+}
+
+@keyframes typewriter {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid;
+  white-space: nowrap;
+  animation: typewriter 2s steps(12) forwards, blink 0.7s step-end infinite;
 }

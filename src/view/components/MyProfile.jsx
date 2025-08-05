@@ -11,7 +11,7 @@ const MyProfile = () => {
           <p className="text-justify">
             with a strong passion for technology and innovation.
           </p>
-          <div className="w-[100%] h-15 my-5 bg-gradient-to-tr from-homeBg2 to-homeBg border-t-4 border-r-4 border-white rounded-2xl"></div>
+          {/* <div className="w-[100%] h-15 my-5 bg-gradient-to-tr from-homeBg2 to-homeBg border-t-4 border-r-4 border-white rounded-2xl"></div> */}
       </div>
       {/* <div className="h-[100%] flex-1 flex flex-col justify-center">
         <h1 className="font-custom font-semibold text-6xl pr-5 [@media(max-width:500px)]:text-3xl [@media(max-width:600px)]:pr-0">I'm Delkano</h1>

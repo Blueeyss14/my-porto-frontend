@@ -2,10 +2,10 @@ import MyProfile from "../components/MyProfile";
 
 const ProfilePage = () => {
   return (
-    <div className="bg-amber-300 flex-1 mx-2 rounded-t-[10px] relative overflow-hidden object-cover flex items-center justify-center"
-    style={{backgroundImage : "url('assets/bg.jpg')"}}
+    <div className="flex-1 mx-2 rounded-t-[10px] relative overflow-hidden object-cover flex items-center justify-center"
+    // style={{backgroundImage : "url('assets/bg.jpg')"}}
     >
-      <div className="bg-white/5 w-full h-full backdrop-blur-[20px] rounded-t-[10px]">
+      <div className="w-full h-full rounded-t-[10px]">
         <MyProfile />
       </div>
     </div>

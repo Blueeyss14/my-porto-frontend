@@ -1,14 +1,23 @@
 import MediaPlayer from "../shared/components/MediaPlayer";
 import Navbar from "../components/Navbar";
 import BlurBackgorund from "../shared/components/BlurBackgorund";
-
 import { medsos, mapMedsos } from "../../helper/medsos";
-import { appBar, mapAppbar } from "../../helper/appbarData";
+import AppBar from "../components/AppBar";
+import ProfilePage from "./ProfilePage";
+import SongPlaylist from "./SongPlaylist";
+import useBottombarStore from "../../state/bottombarStore";
 
 const HomePage = () => {
   const medsosItems = mapMedsos(medsos);
-  const appbarItems = mapAppbar(appBar);
   const mediaUrl = "assets/images/background.png";
+  const activeIndex = useBottombarStore((s) => s.activeIndex);
+
+
+  const pageList = [
+    <ProfilePage/>,
+    <SongPlaylist/>
+  ];
+
   return (
     <div className="w-screen h-screen bg-cover bg-center relative overflow-hidden">
       <MediaPlayer
@@ -18,19 +27,8 @@ const HomePage = () => {
       />
       <div className="w-screen h-screen inset-0 backdrop-blur-[50px] bg-black/30 absolute overflow-hidden flex flex-col items-center justify-end">
         <div className="w-[90%] flex justify-between items-center">
-          <BlurBackgorund
-            className="flex justify-center items-center p-[6px]"
-            roundedClass="rounded-[30px]"
-          >
-            {appbarItems.map((item) => (
-              <div className="flex items-center justify-center hover-medsos cursor-pointer w-30 [@media(max-width:760px)]:w-15">
-                <img src={`${item.icon}`} className="w-8.5 h-8.5" />
-                <h1 className="pl-2 font-custom text-[0.95rem] [@media(max-width:760px)]:hidden">
-                  {item.label}
-                </h1>
-              </div>
-            ))}
-          </BlurBackgorund>
+          <AppBar/>
+          {/* MEDSOS */}
           <BlurBackgorund
             className="flex justify-center items-center p-[6px] pl-2 cursor-pointer [@media(max-width:760px)]:w-40 [@media(max-width:760px)]:justify-between"
             roundedClass="rounded-[30px]"
@@ -46,8 +44,9 @@ const HomePage = () => {
             {/* <Navbar/> */}
           </BlurBackgorund>
         </div>
-        <BlurBackgorund className="border-b-0 h-[85%] w-[90%] mt-4">
+        <BlurBackgorund className="border-b-0 h-[85%] w-[90%] mt-5 flex flex-col items-center">
           <Navbar />
+          {pageList[activeIndex]}
         </BlurBackgorund>
         {/* <div className="bg-white/10 border-white/10 border-2 border-b-0 h-[85%] w-[90%] rounded-t-4xl backdrop-blur-[20px] overflow-hidden">
           <Navbar />

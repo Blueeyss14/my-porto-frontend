@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const TypewriterLoop = ({ text = "I'm Delkano", speed = 100, pause = 1000, className = "" }) => {
+const TypewriterLoop = ({ text = "", speed = 100, pause = 1000, className = "" }) => {
   const [displayed, setDisplayed] = useState('');
   const [index, setIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);

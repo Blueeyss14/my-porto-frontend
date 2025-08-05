@@ -6,20 +6,10 @@
   --color-homeBg2: #dadada;
   --color-greenBtn: #4CAF4F;
  --font-custom: "Montserrat", sans-serif;
+   --color-medsos-hover: invert(50%) sepia(88%) saturate(2000%) hue-rotate(300deg) brightness(100%) contrast(95%);
 }
 
-@keyframes typewriter {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink {
-  50% { border-color: transparent }
-}
-
-.typewriter {
-  overflow: hidden;
-  border-right: 2px solid;
-  white-space: nowrap;
-  animation: typewriter 2s steps(12) forwards, blink 0.7s step-end infinite;
+.hover-medsos:hover {
+  @apply transition duration-200;
+  filter: var(--color-medsos-hover);
 }

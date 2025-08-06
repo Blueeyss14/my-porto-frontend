@@ -14,13 +14,13 @@ const AppBar = () => {
       {appbarItems.map((item, idx) => (
         <div
           key={idx}
-          className={`flex items-center justify-center ${
+          className={`flex items-center justify-center group ${
             activeIndex === idx ? "whitee" : "grayy"
           } cursor-pointer w-30 [@media(max-width:760px)]:w-15`}
           onClick={() => setClickedIndex(idx)}
         >
-          <img src={`${item.icon}`} className="w-8 h-8.5" />
-          <h1 className="pl-2 font-custom text-[0.95rem] [@media(max-width:760px)]:hidden">
+          <img src={`${item.icon}`} className={`w-8 h-8.5 ${activeIndex === idx ? 'img-shadow-white-on-hover' : ''}`} />
+          <h1 className={`pl-2 font-custom text-[0.95rem] [@media(max-width:760px)]:hidden ${activeIndex === idx ? 'text-shadow-white-on-hover' : ''} `}>
             {item.label}
           </h1>
         </div>

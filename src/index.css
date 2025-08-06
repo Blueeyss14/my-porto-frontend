@@ -9,6 +9,20 @@
    --color-medsos: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(0%) hue-rotate(154deg) brightness(87%) contrast(86%);
    --color-medsos-hover: brightness(0) saturate(100%) invert(99%) sepia(2%) saturate(5418%) hue-rotate(228deg) brightness(125%) contrast(71%);
    --color-grayy: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(3322%) hue-rotate(18deg) brightness(100%) contrast(86%);
+     --text-shadow-white: 0 0 12px white;
+}
+
+
+
+.group:hover .text-shadow-white-on-hover {
+  text-shadow: var(--text-shadow-white);
+}
+.group:hover .img-shadow-white-on-hover {
+  filter: drop-shadow(0 0 5px white);
+}
+
+.text-shadow-white {
+  text-shadow: var(--text-shadow-white);
 }
 
 .whitee {

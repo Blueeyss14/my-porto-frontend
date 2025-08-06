@@ -39,22 +39,22 @@ const ChatOverlay = () => {
         return (
           <div key={realIndex}>
             <BlurBackgorund
-            background="bg-white/5 border-white/5"
+            background={`bg-white/5 border-white/5 ${realIndex == currentIndex -2 ? "bg-white/10 border-white/10" : ""}`}
               className={`whitee break-words inline-block border-0 transition-opacity  ${
-                realIndex === currentIndex - 1 ? "duration-1000" : "duration-6000"
+                realIndex === currentIndex - 1 ? "duration-1000" : "duration-8000"
               }  ${
                 realIndex === currentIndex - 2
-                  ? "scale-90 [@media(max-width:400px)]:scale-60"
+                  ? "scale-90 [@media(max-width:400px)]:scale-70 shadow-white/20 shadow-[0_0_20px_white]"
                   : realIndex === currentIndex - 1
-                  ? "scale-60"
+                  ? "scale-70 [@media(max-width:400px)]:scale-50 shadow-white/20 shadow-[0_0_20px_white]"
                   : ""
               } ${
                 realIndex < currentIndex - 1
-                  ? "opacity-0 scale-70 [@media(max-width:400px)]:scale-30"
+                  ? "opacity-0 scale-60 [@media(max-width:400px)]:scale-50 shadow-white/10 shadow-[0_0_20px_white]"
                   : visibleIndexes.has(realIndex)
                   ? "opacity-100"
                   : "opacity-0"
-              } p-2 font-custom ${realIndex % 2 === 0 ? "m-2 [@media(max-width:800px)]:m:0" : "ml-20"}`}
+              } p-2 font-custom ${realIndex % 2 === 0 ? "m-2 [@media(max-width:800px)]:m:0" : "ml-20 [@media(max-width:700px)]:ml-15"}`}
               roundedClass="rounded-[10px]"
             >
               <h1 className="text-[12px] font-bold">{chat.user}</h1>

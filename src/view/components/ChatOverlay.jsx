@@ -33,28 +33,28 @@ const ChatOverlay = () => {
   const visibleChats = chatList.slice(start);
 
   return (
-    <div>
+    <div className="w-[400px] [@media(max-width:500px)]:w-full flex flex-col">
       {visibleChats.map((chat, i) => {
         const realIndex = start + i;
         return (
           <div key={realIndex}>
             <BlurBackgorund
             background="bg-white/5 border-white/5"
-              className={`whitee max-w-[50%] inline-block border-0 w-fit transition-opacity  ${
+              className={`whitee break-words inline-block border-0 transition-opacity  ${
                 realIndex === currentIndex - 1 ? "duration-1000" : "duration-6000"
               }  ${
                 realIndex === currentIndex - 2
-                  ? "scale-100"
+                  ? "scale-90 [@media(max-width:400px)]:scale-60"
                   : realIndex === currentIndex - 1
-                  ? "scale-80"
+                  ? "scale-60"
                   : ""
               } ${
                 realIndex < currentIndex - 1
-                  ? "opacity-0 transform scale-80"
+                  ? "opacity-0 scale-70 [@media(max-width:400px)]:scale-30"
                   : visibleIndexes.has(realIndex)
                   ? "opacity-100"
                   : "opacity-0"
-              } m-2 p-2 font-custom ${realIndex % 2 === 0 ? "m-3" : "ml-20"}`}
+              } p-2 font-custom ${realIndex % 2 === 0 ? "m-2 [@media(max-width:800px)]:m:0" : "ml-20"}`}
               roundedClass="rounded-[10px]"
             >
               <h1 className="text-[12px] font-bold">{chat.user}</h1>

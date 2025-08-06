@@ -3,7 +3,11 @@ import BlurBackgorund from "../shared/components/BlurBackgorund";
 import { useChatStore } from "../../state/chatStore";
 
 const ChatOverlay = () => {
-  const { chatList, currentIndex, visibleIndexes, addNextChat, revealLatestChat } = useChatStore();
+  const { chatList, currentIndex, visibleIndexes, addNextChat, revealLatestChat, initChats } = useChatStore();
+
+   useEffect(() => {
+    initChats();
+  }, [initChats]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,7 +27,7 @@ const ChatOverlay = () => {
   const start = chatList.length > 7 ? chatList.length - 7 : 0;
   const visibleChats = chatList.slice(start);
 
-  return (
+  return  (
     <div className="w-[400px] [@media(max-width:500px)]:w-full flex flex-col">
       {visibleChats.map((chat, i) => {
         const realIndex = start + i;

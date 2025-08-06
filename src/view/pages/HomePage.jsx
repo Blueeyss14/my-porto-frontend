@@ -34,7 +34,7 @@ const HomePage = () => {
             roundedClass="rounded-[30px]"
           >
             {medsosItems.map((item) => (
-              <div className="flex items-center justify-center hover-medsos group">
+              <div onClick={() => window.open(item.site, '_blank')} className="flex items-center justify-center hover-medsos group">
                 <img src={`${item.icon}`} className="w-8.5 h-8.5 img-shadow-white-on-hover" />
                 <h1 className="pr-6 pl-2 font-custom text-shadow-white-on-hover text-[0.95rem] [@media(max-width:760px)]:hidden">
                   {item.label}

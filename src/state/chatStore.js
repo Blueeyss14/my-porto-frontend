@@ -2,17 +2,17 @@ import { create } from 'zustand';
 import { mapChatData } from "../helper/chatData";
 
 // const chats = mapChatData(chatData);
-
+// VITE_BASE_URL=http://localhost:3000
+// VITE_API_KEY=sdhfjksdfhsdkfh1k3GdfnIijdwfklwflkeflkgjlkj%skm@msods1mfsdGzw$klhjk
 
 const fetchChatsFromServer = async () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
   try {
     const res = await fetch(`${baseUrl}/messages`, {
       headers: { 'Authorization': apiKey },
     });
     const data = await res.json();
-    console.log('DATA:', data);
     return mapChatData(data.data);
     
   } catch (err) {

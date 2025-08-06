@@ -1,33 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import BlurBackgorund from "../shared/components/BlurBackgorund";
-import { chatData, mapChatData } from "../../helper/chatData";
+import { useChatStore } from "../../state/chatStore";
 
 const ChatOverlay = () => {
-  const chats = mapChatData(chatData);
-  const [chatList, setChatList] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleIndexes, setVisibleIndexes] = useState(new Set());
+  const { chatList, currentIndex, visibleIndexes, addNextChat, revealLatestChat } = useChatStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setChatList((prev) => {
-        const nextIndex = prev.length % chats.length;
-        return [...prev, chats[nextIndex]];
-      });
-      setCurrentIndex((prev) => prev + 1);
+      addNextChat();
     }, 1500);
-
     return () => clearInterval(interval);
-  }, [chats]);
+  }, [addNextChat]);
 
   useEffect(() => {
     if (chatList.length > 0) {
-      const latestIndex = chatList.length - 1;
       setTimeout(() => {
-        setVisibleIndexes((prev) => new Set(prev).add(latestIndex));
+        revealLatestChat();
       }, 50);
     }
-  }, [chatList]);
+  }, [chatList, revealLatestChat]);
 
   const start = chatList.length > 7 ? chatList.length - 7 : 0;
   const visibleChats = chatList.slice(start);
@@ -44,9 +35,9 @@ const ChatOverlay = () => {
                 realIndex === currentIndex - 1 ? "duration-1000" : "duration-8000"
               }  ${
                 realIndex === currentIndex - 2
-                  ? "scale-90 [@media(max-width:400px)]:scale-70 shadow-white/20 shadow-[0_0_20px_white]"
+                  ? "scale-90 [@media(max-width:500px)]:scale-70 shadow-white/20 shadow-[0_0_20px_white]"
                   : realIndex === currentIndex - 1
-                  ? "scale-70 [@media(max-width:400px)]:scale-50 shadow-white/20 shadow-[0_0_20px_white]"
+                  ? "scale-70 [@media(max-width:500px)]:scale-60 shadow-white/20 shadow-[0_0_20px_white]"
                   : ""
               } ${
                 realIndex < currentIndex - 1

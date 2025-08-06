@@ -1,6 +1,6 @@
-const BlurBackgorund = ({children, className, roundedClass = 'rounded-t-4xl', blur='backdrop-blur-[20px]'}) => {
+const BlurBackgorund = ({children, className, roundedClass = 'rounded-t-4xl', blur ='backdrop-blur-[20px]', background = 'bg-white/10 border-white/10'}) => {
   return (
-    <div className={`bg-white/10 border-white/10 border-2 ${className} ${roundedClass} ${blur} overflow-hidden`}>
+    <div className={`${background} border-2 ${className} ${roundedClass} ${blur} overflow-hidden`}>
       {children}
     </div>
   )

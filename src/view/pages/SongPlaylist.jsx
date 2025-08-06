@@ -5,7 +5,7 @@ const SongPlaylist = () => {
     <div className="flex-1 relative overflow-hidden "
     // style={{backgroundImage : "url('assets/bg.jpg')"}}
     >
-      <ChatOverlay/>
+      {/* <ChatOverlay/> */}
     </div>
   );
 };

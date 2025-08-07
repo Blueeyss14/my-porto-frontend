@@ -24,8 +24,7 @@ const ChatOverlay = () => {
     }
   }, [chatList, revealLatestChat]);
 
-  
-
+  //nampilin semua chat tapi yg dirender 7 chat doang trus looping
   const start = chatList.length > 7 ? chatList.length - 7 : 0;
   const visibleChats = chatList.slice(start);
 
@@ -38,10 +37,10 @@ const ChatOverlay = () => {
           className={` flex w-full h-full ${realIndex !== currentIndex -1 && realIndex % 2 === 1 ? "justify-end" : `$`} ${realIndex !== currentIndex -1 ? "scale-80 origin-right [@media(max-width:800px)]:scale-70" : ""}`}
           >
             <BlurBackgorund
-            background={` bg-white/5 border-white/5 ${realIndex === currentIndex -1 ? "bg-white/5 border-white/5" : 'bg-white/20 border-white/20'}`}
+            background={`${realIndex === currentIndex -1 ? "bg-white/5 border-white/5" : 'bg-white/20 border-white/20'}`}
               className={` p-1.5 whitee break-words inline-block border-0 transition-opacity w-fit min-w-[100px] max-w-[300px]
                 ${
-                realIndex === currentIndex - 1 ? "animate-float shadow-white/30 shadow-[0_0_20px_white]" : "duration-4000 shadow-white/25 shadow-[0_0_20px_white]"
+                realIndex === currentIndex - 1 ? "animate-float shadow-white/30 shadow-[0_0_20px_white]" : "duration-8000 shadow-white/25 shadow-[0_0_20px_white]"
               } 
               ${
                 realIndex < currentIndex - 2

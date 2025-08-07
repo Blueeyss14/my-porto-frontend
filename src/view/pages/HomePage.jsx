@@ -6,11 +6,9 @@ import AppBar from "../components/AppBar";
 import ProfilePage from "./ProfilePage";
 import SongPlaylist from "./SongPlaylist";
 import useBottombarStore from "../../state/bottombarStore";
-import { useChatStore } from "../../state/chatStore";
-import { NameInput } from "../components/NameInput";
+import ConfirmMessageWindow from "./ConfirmMessageWindow";
 
 const HomePage = () => {
-  const { isClicked, toggleIsClicked } = useChatStore();
   const medsosItems = mapMedsos(medsos);
   const mediaUrl = "assets/images/background.png";
   const activeIndex = useBottombarStore((s) => s.activeIndex);
@@ -57,16 +55,7 @@ const HomePage = () => {
           <Navbar />
         </div> */}
       </div>
-      {isClicked && <div 
-      onClick={() => toggleIsClicked(false)}
-      className="absolute bg-black/10 w-screen h-screen backdrop-blur-[30px] overflow-hidden">
-        <div onClick={(e) => e.stopPropagation()}>
-        <NameInput/>
-
-        </div>
-        </div>
-        }
-
+      <ConfirmMessageWindow/>
     </div>
   );
 };

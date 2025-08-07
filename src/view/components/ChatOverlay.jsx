@@ -37,10 +37,10 @@ const ChatOverlay = () => {
           className={` flex w-full h-full ${realIndex !== currentIndex -1 && realIndex % 2 === 1 ? "justify-end" : `$`} ${realIndex !== currentIndex -1 ? "scale-80 origin-right [@media(max-width:800px)]:scale-70" : ""}`}
           >
             <BlurBackgorund
-            background={`${realIndex === currentIndex -1 ? "bg-white/5 border-white/5" : 'bg-white/20 border-white/20'}`}
-              className={` p-1.5 whitee break-words inline-block border-0 transition-opacity w-fit min-w-[100px] max-w-[300px]
+            background={`${realIndex === currentIndex -1 ? "bg-white/3 border-white/5" : 'bg-white/15 border-white/5'}`}
+              className={`py-1.5 px-2 break-words inline-block border-0 transition-opacity w-fit min-w-[100px] max-w-[300px]
                 ${
-                realIndex === currentIndex - 1 ? "animate-float shadow-white/30 shadow-[0_0_20px_white]" : "duration-8000 shadow-white/25 shadow-[0_0_20px_white]"
+                realIndex === currentIndex - 1 ? "animate-float shadow-white/25 shadow-[0_0_20px_white]" : "duration-8000 shadow-white/15 shadow-[0_0_20px_white]"
               } 
               ${
                 realIndex < currentIndex - 2
@@ -52,8 +52,8 @@ const ChatOverlay = () => {
               `}
               roundedClass="rounded-[10px]"
             >
-              <h1 className="text-[12px] font-bold">{chat.user}</h1>
-              <h1 className="text-[12px] ">{chat.message}</h1>
+              <h1 className="text-[12px] font-bold text-white/60">{chat.user}</h1>
+              <h1 className="text-[12px] text-white/50">{chat.message}</h1>
             </BlurBackgorund>
           </div>
         );

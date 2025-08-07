@@ -2,8 +2,6 @@ import { create } from 'zustand';
 import { mapChatData } from "../helper/chatData";
 
 // const chats = mapChatData(chatData);
-// VITE_BASE_URL=http://localhost:3000
-// VITE_API_KEY=sdhfjksdfhsdkfh1k3GdfnIijdwfklwflkeflkgjlkj%skm@msods1mfsdGzw$klhjk
 
 const fetchChatsFromServer = async () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -26,6 +24,12 @@ export const useChatStore = create((set, get) => ({
   originalChats: [],
   currentIndex: 0,
   visibleIndexes: new Set(),
+
+  isClicked: false,
+
+  toggleIsClicked: () => {
+    set((state) => ({ isClicked: !state.isClicked }));
+  },
 
    initChats: async () => {
     const chats = await fetchChatsFromServer();
@@ -51,4 +55,48 @@ export const useChatStore = create((set, get) => ({
       set({ visibleIndexes: newSet });
     }
   },
+
+
+  postChat: async (name) => {
+    if (!name || name.trim() === "") {
+      const event = new CustomEvent("show-snackbar", {
+        detail: "Name cannot be empty",
+      });
+      window.dispatchEvent(event);
+      return;
+    }
+
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    const apiKey = import.meta.env.VITE_API_KEY;
+
+    try {
+      const res = await fetch(`${baseUrl}/messages`, {
+        method: "POST",
+        headers: {
+          "Authorization": apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to post chat");
+      }
+
+      await res.json();
+      await get().initChats();
+
+      const event = new CustomEvent("show-snackbar", {
+        detail: "Message sent",
+      });
+      window.dispatchEvent(event);
+    } catch (err) {
+      console.error("Post error:", err);
+      const event = new CustomEvent("show-snackbar", {
+        detail: "Failed to post chat",
+      });
+      window.dispatchEvent(event);
+    }
+  },
 }));
+

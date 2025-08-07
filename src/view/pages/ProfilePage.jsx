@@ -1,6 +1,6 @@
 import TypewriterLoop from "../shared/animations/typewriter";
-import BlurBackgorund from "../shared/components/BlurBackgorund";
 import ChatOverlay from "../components/ChatOverlay";
+import ChatInput from "../components/ChatInput";
 
 const ProfilePage = () => {
   return (
@@ -26,27 +26,10 @@ const ProfilePage = () => {
       </div>
 
       <div className="absolute w-[90%] h-full flex flex-col justify-end items-end ">
-          <ChatOverlay />
-          <div className="flex w-full items- justify-end mb-5 font-custom text-[1rem]">
-            <div className="w-80 [@media(max-width:800px)]:w-full border-2 border-homeBg2/70 rounded-full px-5 py-2 mr-5">
-              <form className="whitee">
-                <input
-                  className="w-full border-0 border-transparent focus:outline-none focus:ring-0"
-                  placeholder="Message"
-                ></input>
-              </form>
-            </div>
-            <div>
-              <BlurBackgorund
-              background="bg-white/0 border-white/30 hover:bg-white/20 transition duration-200 ease-in-out"
-              className="w-11 h-11 flex items-center justify-center shadow-white/20 hover:shadow-[0_0_20px_white]"
-              roundedClass="rounded-full"
-              >
-                <img src="assets/icons/paper-plane.png" className="w-[60%] h-[60%] ml-1 hover-medsos"/>
-              </BlurBackgorund>
-            </div>
-          </div>
+           <ChatOverlay />
+           <ChatInput/>
       </div>
+
 
     </div>
   );

@@ -25,7 +25,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className="absolute w-[90%] h-full flex flex-col justify-end items-end ">
+      <div className="absolute w-[90%] h-full flex flex-col justify-end items-end">
            <ChatOverlay />
            <ChatInput/>
       </div>

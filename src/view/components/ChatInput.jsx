@@ -11,8 +11,8 @@ const ChatInput = () => {
           <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-            className="w-full border-0 border-transparent focus:outline-none focus:ring-0"
-            placeholder="Message"
+            className="w-full border-0 border-transparent focus:outline-none focus:ring-0 text-[0.9rem]"
+            placeholder="Send me a message"
           ></input>
         </form>
       </div>

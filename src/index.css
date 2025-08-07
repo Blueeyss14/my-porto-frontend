@@ -16,9 +16,12 @@
 
 .group:hover .text-shadow-white-on-hover {
   text-shadow: var(--text-shadow-white);
+  transition: .1s ease-in-out;
+
 }
 .group:hover .img-shadow-white-on-hover {
   filter: drop-shadow(0 0 5px white);
+  transition: .1s ease-in-out;
 }
 
 .text-shadow-white {
@@ -60,5 +63,6 @@
 
 .animate-float {
   animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: left;
 }
 

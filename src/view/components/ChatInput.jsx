@@ -3,11 +3,14 @@ import { useChatStore } from "../../state/chatStore";
 
 const ChatInput = () => {
   const { isClicked, toggleIsClicked } = useChatStore();
+  const { message, setMessage } = useChatStore();
   return (
     <div className="flex w-full items-center justify-end mb-5 mt-3 font-custom text-[1rem]">
       <div className="w-80 [@media(max-width:800px)]:w-full border-2 border-homeBg2/70 rounded-full px-5 py-1.5 mr-5">
         <form className="whitee">
           <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
             className="w-full border-0 border-transparent focus:outline-none focus:ring-0"
             placeholder="Message"
           ></input>

@@ -7,9 +7,11 @@ import ProfilePage from "./ProfilePage";
 import SongPlaylist from "./SongPlaylist";
 import useBottombarStore from "../../state/bottombarStore";
 import { useChatStore } from "../../state/chatStore";
+import { Chat } from "../components/Chat";
+import { NameInput } from "../components/NameInput";
 
 const HomePage = () => {
-  const { isClicked , toggleIsClicked } = useChatStore();
+  const { isClicked } = useChatStore();
   const medsosItems = mapMedsos(medsos);
   const mediaUrl = "assets/images/background.png";
   const activeIndex = useBottombarStore((s) => s.activeIndex);
@@ -57,8 +59,11 @@ const HomePage = () => {
         </div> */}
       </div>
       {isClicked && <div 
-      onClick={() => toggleIsClicked(false)}
-      className="absolute bg-black/10 w-screen h-screen backdrop-blur-[30px] overflow-hidden"></div>}
+      // onClick={() => toggleIsClicked(false)}
+      className="absolute bg-black/10 w-screen h-screen backdrop-blur-[30px] overflow-hidden">
+        <NameInput/>
+        
+        </div>}
 
     </div>
   );

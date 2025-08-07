@@ -20,6 +20,11 @@ const fetchChatsFromServer = async () => {
 };
 
 export const useChatStore = create((set, get) => ({
+  name: '',
+  message: '',
+  setName: (name) => set({ name }),
+  setMessage: (message) => set({ message }),
+
   chatList: [],
   originalChats: [],
   currentIndex: 0,
@@ -56,47 +61,27 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
-
-  postChat: async (name) => {
-    if (!name || name.trim() === "") {
-      const event = new CustomEvent("show-snackbar", {
-        detail: "Name cannot be empty",
-      });
-      window.dispatchEvent(event);
-      return;
-    }
-
+    postChat: async (newMessage) => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
     const apiKey = import.meta.env.VITE_API_KEY;
-
     try {
       const res = await fetch(`${baseUrl}/messages`, {
-        method: "POST",
-        headers: {
-          "Authorization": apiKey,
-          "Content-Type": "application/json",
+        method: 'POST',
+        headers: { 
+          'Authorization': apiKey,
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({
+          user_name: newMessage.user,
+          message: newMessage.message
+        })
       });
-
-      if (!res.ok) {
-        throw new Error("Failed to post chat");
-      }
-
-      await res.json();
-      await get().initChats();
-
-      const event = new CustomEvent("show-snackbar", {
-        detail: "Message sent",
-      });
-      window.dispatchEvent(event);
+      return await res.json();
     } catch (err) {
-      console.error("Post error:", err);
-      const event = new CustomEvent("show-snackbar", {
-        detail: "Failed to post chat",
-      });
-      window.dispatchEvent(event);
+      console.error('Post error:', err);
+      return null;
     }
   },
+
 }));
 

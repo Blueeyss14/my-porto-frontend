@@ -18,13 +18,13 @@ const ConfirmMessageWindow = () => {
   `}
     >
       <div className="w-[90%] h-full flex flex-col justify-center items-center">
-        <h1 className="font-custom font-bold text-homeBg2 text-6xl text-center">
+        <h1 className="font-custom font-bold text-homeBg2 text-6xl text-center [@media(max-width:700px)]:text-5xl [@media(max-width:550px)]:!text-[1.7rem]">
           This is My Portfolio
         </h1>
-        <h1 className="font-custom font-medium text-homeBg2 text-[1.2rem] text-center mt-1 mb-5">
+        <h1 className="font-custom font-medium text-homeBg2 text-[1.2rem] text-center mt-1 mb-5 [@media(max-width:700px)]:text-[1rem] [@media(max-width:550px)]:!text-[0.7rem]">
           Your message will appear, so kindly keep it positive.
         </h1>
-        <div className="w-full max-w-100" onClick={(e) => e.stopPropagation()}>
+        <div className="w-full max-w-100 [@media(max-width:550px)]:!w-[80%]" onClick={(e) => e.stopPropagation()}>
           <NameInput />
         </div>
       </div>

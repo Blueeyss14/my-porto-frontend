@@ -41,3 +41,24 @@
   @apply transition duration-200;
   filter: var(--color-medsos-hover);
 }
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(-70px) scale(0.8);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+
+  }
+}
+
+.animate-float {
+  animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+

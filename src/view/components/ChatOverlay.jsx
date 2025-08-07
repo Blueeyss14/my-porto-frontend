@@ -24,6 +24,8 @@ const ChatOverlay = () => {
     }
   }, [chatList, revealLatestChat]);
 
+  
+
   const start = chatList.length > 7 ? chatList.length - 7 : 0;
   const visibleChats = chatList.slice(start);
 
@@ -32,24 +34,23 @@ const ChatOverlay = () => {
       {visibleChats.map((chat, i) => {
         const realIndex = start + i;
         return (
-          <div key={realIndex}>
+          <div key={realIndex}
+          className={`flex w-full h-full ${realIndex !== currentIndex -1 && realIndex % 2 === 1 ? "justify-end" : `$`} ${realIndex !== currentIndex -1 ? "scale-80" : ""}`}
+          >
             <BlurBackgorund
-            background={`bg-white/5 border-white/5 ${realIndex == currentIndex -2 ? "bg-white/10 border-white/10" : ""}`}
-              className={`whitee break-words inline-block border-0 transition-opacity  ${
-                realIndex === currentIndex - 1 ? "duration-1000" : "duration-8000"
-              }  ${
-                realIndex === currentIndex - 2
-                  ? "scale-90 [@media(max-width:500px)]:scale-70 shadow-white/20 shadow-[0_0_20px_white]"
-                  : realIndex === currentIndex - 1
-                  ? "scale-70 [@media(max-width:500px)]:scale-60 shadow-white/20 shadow-[0_0_20px_white]"
-                  : ""
-              } ${
-                realIndex < currentIndex - 1
-                  ? "opacity-0 scale-60 [@media(max-width:400px)]:scale-50 shadow-white/10 shadow-[0_0_20px_white]"
+            background={`bg-white/5 border-white/5 ${realIndex === currentIndex -1 ? "bg-white/30 border-white/30" : ''}`}
+              className={`p-1.5 whitee break-words inline-block border-0 transition-opacity w-fit min-w-[100px] w-max-[100%]
+                ${
+                realIndex === currentIndex - 1 ? "animate-float shadow-white/30 shadow-[0_0_20px_white]" : "duration-8000"
+              } 
+              ${
+                realIndex < currentIndex - 2
+                  ? "opacity-0"
                   : visibleIndexes.has(realIndex)
                   ? "opacity-100"
                   : "opacity-0"
-              } p-2 font-custom ${realIndex % 2 === 0 ? "m-2 [@media(max-width:800px)]:m:0" : "ml-20 [@media(max-width:700px)]:ml-15"}`}
+              }
+              `}
               roundedClass="rounded-[10px]"
             >
               <h1 className="text-[12px] font-bold">{chat.user}</h1>

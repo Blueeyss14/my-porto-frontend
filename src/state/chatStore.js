@@ -61,27 +61,47 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
-    postChat: async (newMessage) => {
-    const baseUrl = import.meta.env.VITE_BASE_URL;
-    const apiKey = import.meta.env.VITE_API_KEY;
-    try {
-      const res = await fetch(`${baseUrl}/messages`, {
-        method: 'POST',
-        headers: { 
-          'Authorization': apiKey,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user_name: newMessage.user,
-          message: newMessage.message
-        })
-      });
-      return await res.json();
-    } catch (err) {
-      console.error('Post error:', err);
-      return null;
-    }
-  },
+postChat: async (newMessage) => {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+  try {
+    const res = await fetch(`${baseUrl}/messages`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_name: newMessage.user,
+        message: newMessage.message
+      })
+    });
+
+    const responseData = await res.json();
+    const newChat = {
+      user: newMessage.user,
+      message: newMessage.message,
+    };
+
+    set((state) => {
+      const updatedSet = new Set(state.visibleIndexes);
+      updatedSet.add(state.chatList.length);
+      return {
+        originalChats: [...state.originalChats, newChat],
+        chatList: [...state.chatList, newChat],
+        currentIndex: state.currentIndex + 1,
+        visibleIndexes: updatedSet,
+      };
+    });
+
+    return responseData;
+  } catch (err) {
+    console.error('Post error:', err);
+    return null;
+  }
+},
+
+
 
 }));
 

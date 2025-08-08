@@ -13,6 +13,15 @@
 }
 
 
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 
 .group:hover .text-shadow-white-on-hover {
   text-shadow: var(--text-shadow-white);

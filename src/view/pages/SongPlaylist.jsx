@@ -8,8 +8,8 @@ export default function SongPlaylist() {
     isPlaying,
     currentTime,
     duration,
-    volume,
-    isMuted,
+    // volume,
+    // isMuted,
     isLoading,
     formatTime,
     togglePlayPause,
@@ -47,20 +47,29 @@ export default function SongPlaylist() {
   };
 
   return (
-    <div className="w-[90%] h-full flex">
+    <div className="w-[90%] h-full flex font-custom justify-center items-center">
       <div className="flex h-[90%] w-full">
         <div className="h-full w-[350px] flex flex-col">
           {/* Music Profile */}
           <BlurBackgorund
             background="bg-white/3 border-white/5"
             roundedClass="rounded-[20px]"
-            className="flex-1 w-full mb-5 p-4 flex flex-col items-center"
+            className="flex-1 w-full mb-5 p-4 flex flex-col items-center max-h-[550px]"
           >
             <h1 className="mb-4">Your Song</h1>
-            <BlurBackgorund className="flex-1 w-full" roundedClass="rounded-[10px]"/>
+            <BlurBackgorund
+              className="flex-1 w-full"
+              roundedClass="rounded-[10px]"
+            />
             {/* SLIDER */}
             <div className="w-full flex flex-col items-center justify-center">
-              <h1 className="mb-3 mt-7">{songs[currentSongIndex]?.song.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ')}</h1>
+              <h1 className="mb-3 mt-7">
+                {songs[currentSongIndex]?.song
+                  .split("/")
+                  .pop()
+                  .replace(/\.[^/.]+$/, "")
+                  .replace(/[-_]/g, " ")}
+              </h1>
               <div
                 className="w-full h-1 bg-homeBg overflow-hidden cursor-pointer my-1 rounded-full"
                 onDrag={handleSeek}
@@ -110,19 +119,44 @@ export default function SongPlaylist() {
             ></BlurBackgorund>
           </BlurBackgorund>
         </div>
+        {/* Playlist */}
         <div className="flex-1 w-full ml-20 flex flex-col">
-          <h1>Playlist</h1>
-          <div className="flex-1 w-full bg-amber-300 ">
-            {songs.map((s) => (
-              <div>
-                <h1>
-                  {s.song
-                    .split("/")
-                    .pop()
-                    .replace(/\.[^/.]+$/, "")
-                    .replace(/[-_]/g, " ")}
-                </h1>
-                {/* <h1>{songs[currentSongIndex]?.song.split('/').pop().replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ')}</h1> */}
+          <h1 className="font-bold text-[3rem] text-homeBg">Playlist</h1>
+          <div className="flex-1 w-full overflow-y-auto scrollbar-hide pb-50 pt-10">
+            {songs.map((s, i) => (
+              <div
+                className="cursor-pointer"
+                onClick={() => handleSelectSong(i)}
+              >
+                <div
+                  className={`max-w-100 flex items-center ${
+                    currentSongIndex === i
+                      ? "text-homeBg/80"
+                      : "font-normal text-homeBg/50"
+                  }`}
+                >
+                  <h1 className="mr-4 text-[1.3rem]">#</h1>
+                 <BlurBackgorund 
+                 background={`${currentSongIndex === i ? "bg-white/5 border-white/3 shadow-white/10 shadow-[0_0_30px_white]" : "bg-white/1 border-white/1"}`}
+                 blur="backdrop-blur[50px]"
+                 roundedClass="rounded-[5px] border-[1px]"
+                 className="w-full flex justify-center items-center px-2 py-1 mb-1">
+                   <div className="w-full">
+                    <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
+                      {s.song
+                        .split("/")
+                        .pop()
+                        .replace(/\.[^/.]+$/, "")
+                        .replace(/[-_]/g, " ")}
+                    </h1>
+                    <div className="w-full flex justify-start">
+                      <h1 className="text-[10px] mb-1">{`${currentSongIndex === i ? "Playing" : "Queue"}`}</h1>
+                    </div>
+                    {/* divider */}
+                    <div className={`mt-1 mb-0 h-[1px] w-full ${currentSongIndex === i ? 'bg-homeBg/30 ' : 'bg-homeBg/10' } rounded-full`}></div>
+                  </div>
+                 </BlurBackgorund>
+                </div>
               </div>
             ))}
           </div>

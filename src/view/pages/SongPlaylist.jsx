@@ -48,8 +48,8 @@ export default function SongPlaylist() {
 
   return (
     <div className="w-[90%] h-full flex font-custom justify-center items-center">
-      <div className="flex h-[90%] w-full">
-        <div className="h-full w-[350px] flex flex-col">
+      <div className="flex h-[90%] w-full ">
+        <div className="h-full w-[70%] flex flex-col items-end">
           {/* Music Profile */}
           <BlurBackgorund
             background="bg-white/3 border-white/5"
@@ -120,7 +120,7 @@ export default function SongPlaylist() {
           </BlurBackgorund>
         </div>
         {/* Playlist */}
-        <div className="flex-1 w-full ml-20 flex flex-col">
+        <div className="min-w-[400px] ml-20 flex flex-col">
           <h1 className="font-bold text-[3rem] text-homeBg">Playlist</h1>
           <div className="flex-1 w-full overflow-y-auto scrollbar-hide pb-50 pt-10">
             {songs.map((s, i) => (
@@ -140,7 +140,7 @@ export default function SongPlaylist() {
                  background={`${currentSongIndex === i ? "bg-white/5 border-white/3 shadow-white/10 shadow-[0_0_30px_white]" : "bg-white/1 border-white/1"}`}
                  blur="backdrop-blur[50px]"
                  roundedClass="rounded-[5px] border-[1px]"
-                 className="w-full flex justify-center items-center px-2 py-1 mb-1">
+                 className="w-full flex justify-center items-center px-2 py-1 mb-1 mr-7">
                    <div className="w-full">
                     <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
                       {s.song

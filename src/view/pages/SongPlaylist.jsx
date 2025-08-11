@@ -47,123 +47,176 @@ export default function SongPlaylist() {
   };
 
   return (
-    <div className="w-[90%] h-full flex font-custom justify-center items-center">
-      <div className="flex h-[90%] w-full ">
-        <div className="h-full w-[70%] flex flex-col items-end">
-          {/* Music Profile */}
-          <BlurBackgorund
-            background="bg-white/3 border-white/5"
-            roundedClass="rounded-[20px]"
-            className="flex-1 w-full mb-5 p-4 flex flex-col items-center max-h-[550px]"
+    <div className="w-full h-full flex flex-col">
+      {songs.map((s, i) => (
+        <div className="w-full cursor-pointer" onClick={() => handleSelectSong(i)}>
+          <div
+            className={`flex items-center ${
+              currentSongIndex === i
+                ? "text-homeBg/80"
+                : "font-normal text-homeBg/50"
+            }`}
           >
-            <h1 className="mb-4">Your Song</h1>
+            <h1 className="mr-4 text-[1.3rem]">#</h1>
             <BlurBackgorund
-              className="flex-1 w-full"
-              roundedClass="rounded-[10px]"
-            />
-            {/* SLIDER */}
-            <div className="w-full flex flex-col items-center justify-center">
-              <h1 className="mb-3 mt-7">
-                {songs[currentSongIndex]?.song
-                  .split("/")
-                  .pop()
-                  .replace(/\.[^/.]+$/, "")
-                  .replace(/[-_]/g, " ")}
-              </h1>
-              <div
-                className="w-full h-1 bg-homeBg overflow-hidden cursor-pointer my-1 rounded-full"
-                onDrag={handleSeek}
-                onClick={handleSeek}
-              >
+              background={`${
+                currentSongIndex === i
+                  ? "bg-white/5 border-white/3 shadow-white/5 shadow-[0_0_30px_white]"
+                  : "bg-white/1 border-white/1"
+              }`}
+              blur="backdrop-blur[50px]"
+              roundedClass="rounded-[5px] border-[1px]"
+              className="w-full flex justify-center items-center px-2 py-1 mb-1 mr-7"
+            >
+              <div className="w-full">
+                <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
+                  {s.song
+                    .split("/")
+                    .pop()
+                    .replace(/\.[^/.]+$/, "")
+                    .replace(/[-_]/g, " ")}
+                </h1>
+                <div className="w-full flex justify-start">
+                  <h1 className="text-[10px] mb-1">{`${
+                    currentSongIndex === i ? "Playing" : "Queue"
+                  }`}</h1>
+                </div>
+                {/* divider */}
                 <div
-                  className="h-full bg-green-300"
-                  style={{ width: `${progressPercent}%` }}
+                  className={`mt-1 mb-0 h-[1px] w-full ${
+                    currentSongIndex === i ? "bg-homeBg/30 " : "bg-homeBg/10"
+                  } rounded-full`}
                 ></div>
               </div>
-              <div className="w-full flex items-center justify-between text-[0.9rem]">
-                <h1>{formatTime(currentTime)}</h1>
-                <h1>{formatTime(duration)}</h1>
-              </div>
-            </div>
-          </BlurBackgorund>
-          {/* MUSIC PLAYER BAR */}
-          <BlurBackgorund
-            roundedClass="rounded-[20px]"
-            className="w-full flex justify-around items-center p-3"
-          >
-            {/* Prev */}
-            <BlurBackgorund
-              onClick={handlePrevious}
-              roundedClass="rounded-full"
-              className="w-10 h-10"
-            ></BlurBackgorund>
-            {/* Play */}
-            <BlurBackgorund
-              onClick={togglePlayPause}
-              roundedClass="rounded-full"
-              className="w-10 h-10"
-            >
-              <audio
-                ref={ref}
-                src={songs[currentSongIndex]?.song}
-                preload="metadata"
-                onContextMenu={(e) => e.preventDefault()}
-                controlsList="nodownload"
-              />
             </BlurBackgorund>
-            {/* Next */}
-            <BlurBackgorund
-              onClick={handleNext}
-              roundedClass="rounded-full"
-              className="w-10 h-10"
-            ></BlurBackgorund>
-          </BlurBackgorund>
-        </div>
-        {/* Playlist */}
-        <div className="min-w-[400px] ml-20 flex flex-col">
-          <h1 className="font-bold text-[3rem] text-homeBg">Playlist</h1>
-          <div className="flex-1 w-full overflow-y-auto scrollbar-hide pb-50 pt-10">
-            {songs.map((s, i) => (
-              <div
-                className="cursor-pointer"
-                onClick={() => handleSelectSong(i)}
-              >
-                <div
-                  className={`max-w-100 flex items-center ${
-                    currentSongIndex === i
-                      ? "text-homeBg/80"
-                      : "font-normal text-homeBg/50"
-                  }`}
-                >
-                  <h1 className="mr-4 text-[1.3rem]">#</h1>
-                 <BlurBackgorund 
-                 background={`${currentSongIndex === i ? "bg-white/5 border-white/3 shadow-white/10 shadow-[0_0_30px_white]" : "bg-white/1 border-white/1"}`}
-                 blur="backdrop-blur[50px]"
-                 roundedClass="rounded-[5px] border-[1px]"
-                 className="w-full flex justify-center items-center px-2 py-1 mb-1 mr-7">
-                   <div className="w-full">
-                    <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
-                      {s.song
-                        .split("/")
-                        .pop()
-                        .replace(/\.[^/.]+$/, "")
-                        .replace(/[-_]/g, " ")}
-                    </h1>
-                    <div className="w-full flex justify-start">
-                      <h1 className="text-[10px] mb-1">{`${currentSongIndex === i ? "Playing" : "Queue"}`}</h1>
-                    </div>
-                    {/* divider */}
-                    <div className={`mt-1 mb-0 h-[1px] w-full ${currentSongIndex === i ? 'bg-homeBg/30 ' : 'bg-homeBg/10' } rounded-full`}></div>
-                  </div>
-                 </BlurBackgorund>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
-      </div>
+      ))} 
     </div>
   );
+  // return (
+  //   <div className="w-[90%] h-full flex font-custom justify-center items-center">
+  //     <div className="flex h-[90%] w-full">
+  //       <div className="h-full w-[70%] flex flex-col items-end">
+  //         <BlurBackgorund
+  //           background="bg-white/3 border-white/5"
+  //           roundedClass="rounded-[20px]"
+  //           className="flex-1 w-full mb-5 p-4 flex flex-col items-center max-h-[550px]"
+  //         >
+  //           <h1 className="mb-4">Your Song</h1>
+  //           <BlurBackgorund
+  //             className="flex-1 w-full"
+  //             roundedClass="rounded-[10px]"
+  //           />
+  //           <div className="w-full flex flex-col items-center justify-center">
+  //             <h1 className="mb-3 mt-7">
+  //               {songs[currentSongIndex]?.song
+  //                 .split("/")
+  //                 .pop()
+  //                 .replace(/\.[^/.]+$/, "")
+  //                 .replace(/[-_]/g, " ")}
+  //             </h1>
+  //             <div
+  //               className="w-full h-1 bg-homeBg overflow-hidden cursor-pointer my-1 rounded-full"
+  //               onDrag={handleSeek}
+  //               onClick={handleSeek}
+  //             >
+  //               <div
+  //                 className="h-full bg-green-300"
+  //                 style={{ width: `${progressPercent}%` }}
+  //               ></div>
+  //             </div>
+  //             <div className="w-full flex items-center justify-between text-[0.9rem]">
+  //               <h1>{formatTime(currentTime)}</h1>
+  //               <h1>{formatTime(duration)}</h1>
+  //             </div>
+
+  //             <div className="flex">
+  //               <BlurBackgorund
+  //                 onClick={handlePrevious}
+  //                 roundedClass="rounded-full"
+  //                 className="w-10 h-10"
+  //               ></BlurBackgorund>
+  //               <BlurBackgorund
+  //                 onClick={togglePlayPause}
+  //                 roundedClass="rounded-full"
+  //                 className="w-10 h-10"
+  //               >
+  //                 <audio
+  //                   ref={ref}
+  //                   src={songs[currentSongIndex]?.song}
+  //                   preload="metadata"
+  //                   onContextMenu={(e) => e.preventDefault()}
+  //                   controlsList="nodownload"
+  //                 />
+  //               </BlurBackgorund>
+  //               <BlurBackgorund
+  //                 onClick={handleNext}
+  //                 roundedClass="rounded-full"
+  //                 className="w-10 h-10"
+  //               ></BlurBackgorund>
+  //             </div>
+  //             <div></div>
+  //           </div>
+  //         </BlurBackgorund>
+  //       </div>
+  //       <div className="min-w-[400px] ml-20 flex flex-col">
+  //         <h1 className="font-bold text-[3rem] text-homeBg">Playlist</h1>
+  //         <div className="flex-1 w-full overflow-y-auto scrollbar-hide pb-50 pt-10">
+  // {songs.map((s, i) => (
+  //   <div
+  //     className="cursor-pointer"
+  //     onClick={() => handleSelectSong(i)}
+  //   >
+  //     <div
+  //       className={`max-w-100 flex items-center ${
+  //         currentSongIndex === i
+  //           ? "text-homeBg/80"
+  //           : "font-normal text-homeBg/50"
+  //       }`}
+  //     >
+  //       <h1 className="mr-4 text-[1.3rem]">#</h1>
+  //       <BlurBackgorund
+  //         background={`${
+  //           currentSongIndex === i
+  //             ? "bg-white/5 border-white/3 shadow-white/5 shadow-[0_0_30px_white]"
+  //             : "bg-white/1 border-white/1"
+  //         }`}
+  //         blur="backdrop-blur[50px]"
+  //         roundedClass="rounded-[5px] border-[1px]"
+  //         className="w-full flex justify-center items-center px-2 py-1 mb-1 mr-7"
+  //       >
+  //         <div className="w-full">
+  //           <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
+  //             {s.song
+  //               .split("/")
+  //               .pop()
+  //               .replace(/\.[^/.]+$/, "")
+  //               .replace(/[-_]/g, " ")}
+  //           </h1>
+  //           <div className="w-full flex justify-start">
+  //             <h1 className="text-[10px] mb-1">{`${
+  //               currentSongIndex === i ? "Playing" : "Queue"
+  //             }`}</h1>
+  //           </div>
+  //           {/* divider */}
+  //           <div
+  //             className={`mt-1 mb-0 h-[1px] w-full ${
+  //               currentSongIndex === i
+  //                 ? "bg-homeBg/30 "
+  //                 : "bg-homeBg/10"
+  //             } rounded-full`}
+  //           ></div>
+  //         </div>
+  //       </BlurBackgorund>
+  //     </div>
+  //   </div>
+  // ))}
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
 
   // return (
   //   <div className="flex gap-6 max-w-4xl mx-auto mt-8">

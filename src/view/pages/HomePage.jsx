@@ -49,13 +49,21 @@ const HomePage = () => {
         </div>
         <BlurBackgorund className="border-b-0 h-[85%] w-[90%] mt-5 flex flex-col items-center">
           <Navbar />
-          {pageList[activeIndex]}
+           {pageList.map((page, i) => (
+            <div
+              key={i}
+              style={{ display: activeIndex === i ? "flex" : "none" }}
+              className="w-full h-full flex justify-center"
+            >
+              {page}
+            </div>
+          ))}
         </BlurBackgorund>
         {/* <div className="bg-white/10 border-white/10 border-2 border-b-0 h-[85%] w-[90%] rounded-t-4xl backdrop-blur-[20px] overflow-hidden">
           <Navbar />
         </div> */}
       </div>
-      <ConfirmMessageWindow/>
+      <ConfirmMessageWindow />
     </div>
   );
 };

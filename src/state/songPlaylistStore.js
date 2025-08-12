@@ -34,6 +34,15 @@ const useSongPlaylistStore = create((set, get) => ({
     const audio = get().audioRef;
     if (!audio) return;
 
+    audio.removeEventListener('timeupdate', audio._updateTime);
+    audio.removeEventListener('loadedmetadata', audio._setAudioDuration);
+    audio.removeEventListener('play', audio._handlePlay);
+    audio.removeEventListener('pause', audio._handlePause);
+    audio.removeEventListener('ended', audio._handleEnded);
+    audio.removeEventListener('loadstart', audio._handleLoadStart);
+    audio.removeEventListener('canplay', audio._handleCanPlay);
+    audio.removeEventListener('error', audio._handleError);
+
     const updateTime = () => {
       if (!audio.paused) {
         get().setCurrentTime(audio.currentTime);
@@ -58,6 +67,7 @@ const useSongPlaylistStore = create((set, get) => ({
 
     const handleCanPlay = () => {
       get().setIsLoading(false);
+      get().autoPlayFirstSong();
     };
 
     const setAudioDuration = () => {
@@ -72,14 +82,14 @@ const useSongPlaylistStore = create((set, get) => ({
       get().setIsLoading(false);
     };
 
-    audio.removeEventListener('timeupdate', updateTime);
-    audio.removeEventListener('loadedmetadata', setAudioDuration);
-    audio.removeEventListener('play', handlePlay);
-    audio.removeEventListener('pause', handlePause);
-    audio.removeEventListener('ended', handleEnded);
-    audio.removeEventListener('loadstart', handleLoadStart);
-    audio.removeEventListener('canplay', handleCanPlay);
-    audio.removeEventListener('error', handleError);
+    audio._updateTime = updateTime;
+    audio._setAudioDuration = setAudioDuration;
+    audio._handlePlay = handlePlay;
+    audio._handlePause = handlePause;
+    audio._handleEnded = handleEnded;
+    audio._handleLoadStart = handleLoadStart;
+    audio._handleCanPlay = handleCanPlay;
+    audio._handleError = handleError;
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', setAudioDuration);
@@ -90,16 +100,51 @@ const useSongPlaylistStore = create((set, get) => ({
     audio.addEventListener('canplay', handleCanPlay);
     audio.addEventListener('error', handleError);
 
+    get().setIsPlaying(!audio.paused);
+    if (audio.currentTime > 0) get().setCurrentTime(audio.currentTime);
+    if (audio.duration > 0) get().setDuration(audio.duration);
+
     return () => {
-      audio.removeEventListener('timeupdate', updateTime);
-      audio.removeEventListener('loadedmetadata', setAudioDuration);
-      audio.removeEventListener('play', handlePlay);
-      audio.removeEventListener('pause', handlePause);
-      audio.removeEventListener('ended', handleEnded);
-      audio.removeEventListener('loadstart', handleLoadStart);
-      audio.removeEventListener('canplay', handleCanPlay);
-      audio.removeEventListener('error', handleError);
+      if (audio._updateTime) {
+        audio.removeEventListener('timeupdate', audio._updateTime);
+        audio.removeEventListener('loadedmetadata', audio._setAudioDuration);
+        audio.removeEventListener('play', audio._handlePlay);
+        audio.removeEventListener('pause', audio._handlePause);
+        audio.removeEventListener('ended', audio._handleEnded);
+        audio.removeEventListener('loadstart', audio._handleLoadStart);
+        audio.removeEventListener('canplay', audio._handleCanPlay);
+        audio.removeEventListener('error', audio._handleError);
+      }
     };
+  },
+
+  forceRefresh: () => {
+    const audio = get().audioRef;
+    if (audio) {
+      const currentSrc = audio.src;
+      if (currentSrc) {
+        audio.src = '';
+        audio.src = currentSrc;
+        audio.load();
+        get().setupAudioListeners();
+      }
+    }
+  },
+
+  pauseAudio: () => {
+    const audio = get().audioRef;
+    if (audio && !audio.paused) {
+      audio.pause();
+      get().setIsPlaying(false);
+    }
+  },
+
+  resumeAudio: () => {
+    const audio = get().audioRef;
+    if (audio && audio.paused) {
+      audio.play();
+      get().setIsPlaying(true);
+    }
   },
 
   togglePlayPause: async (e) => {
@@ -109,7 +154,14 @@ const useSongPlaylistStore = create((set, get) => ({
     }
 
     const audio = get().audioRef;
-    if (!audio || get().isLoading) return;
+    if (!audio) return;
+
+    if (get().isLoading) {
+      if (get().isPlaying) {
+        audio.pause();
+      }
+      return;
+    }
 
     try {
       if (get().isPlaying) {
@@ -185,22 +237,20 @@ const useSongPlaylistStore = create((set, get) => ({
     const song = get().songs[index];
     if (!song) return;
 
-    if (!audio.paused) {
-      audio.pause();
-    }
-
     get().setIsLoading(true);
     get().setIsPlaying(false);
     get().setCurrentSongIndex(index);
-    
     get().setCurrentTime(0);
     get().setDuration(0);
+
+    if (!audio.paused) {
+      audio.pause();
+    }
 
     audio.src = song.song;
     audio.load();
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 100));
       await audio.play();
     } catch (err) {
       console.error('Playback error:', err);

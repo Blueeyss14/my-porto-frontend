@@ -29,10 +29,30 @@ export default function SongPlaylist() {
   const progressPercent = getProgressPercent();
 
   useEffect(() => {
-    setAudioRef(ref.current);
-    const cleanup = setupAudioListeners();
-    return cleanup;
+    if (ref.current) {
+      setAudioRef(ref.current);
+      const cleanup = setupAudioListeners();
+      return cleanup;
+    }
   }, [setAudioRef, setupAudioListeners]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (ref.current) {
+        setupAudioListeners();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [setupAudioListeners]);
+
+  useEffect(() => {
+    const audioElement = ref.current;
+    return () => {
+      if (audioElement && !audioElement.paused) {
+        audioElement.pause();
+      }
+    };
+  }, []);
 
   const handleSelectSong = (index) => {
     playSongByIndex(index);

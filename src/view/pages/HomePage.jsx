@@ -7,11 +7,21 @@ import ProfilePage from "./ProfilePage";
 import SongPlaylist from "./SongPlaylist";
 import useBottombarStore from "../../state/bottombarStore";
 import ConfirmMessageWindow from "./ConfirmMessageWindow";
+import { useMediaBackgroundStore } from "../../state/mediaBackgroundStore.js";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const medsosItems = mapMedsos(medsos);
-  const mediaUrl = "assets/images/background.png";
   const activeIndex = useBottombarStore((s) => s.activeIndex);
+
+  const { mediaBackground, fetchMediaBackground } = useMediaBackgroundStore();
+  useEffect(() => {
+    fetchMediaBackground();
+  }, [fetchMediaBackground]);
+const mediaUrl =
+  mediaBackground.length > 0
+    ? `http://localhost:3000/mediaBackground/7`
+    : "assets/images/background.png";
 
   const pageList = [<ProfilePage />, <SongPlaylist />];
 
@@ -49,7 +59,7 @@ const HomePage = () => {
         </div>
         <BlurBackgorund className="border-b-0 h-[85%] w-[90%] mt-5 flex flex-col items-center">
           <Navbar />
-           {pageList.map((page, i) => (
+          {pageList.map((page, i) => (
             <div
               key={i}
               style={{ display: activeIndex === i ? "flex" : "none" }}

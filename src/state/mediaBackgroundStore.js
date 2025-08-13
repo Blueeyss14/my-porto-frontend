@@ -11,10 +11,7 @@ export const useMediaBackgroundStore = create((set) => ({
 
   fetchMediaBackground: async () => {
     set({ loading: true, error: null });
-    try {
-      console.log('Fetching from:', `${baseUrl}/mediaBackground`);
-      console.log('Using API key:', apiKey);
-      
+    try {    
       const res = await fetch(`${baseUrl}/mediaBackground`, {
         headers: { Authorization: apiKey },
       });
@@ -30,7 +27,6 @@ export const useMediaBackgroundStore = create((set) => ({
         type: item.mimetype.split('/')[0]
       }));
 
-      console.log('Mapped data:', mapped);
       set({ mediaBackground: mapped, loading: false });
     } catch (err) {
       console.error('Fetch error:', err);

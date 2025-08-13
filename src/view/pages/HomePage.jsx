@@ -1,4 +1,3 @@
-import MediaPlayer from "../shared/components/MediaPlayer";
 import Navbar from "../components/Navbar";
 import BlurBackgorund from "../shared/components/BlurBackgorund";
 import { medsos, mapMedsos } from "../../helper/medsos";
@@ -7,31 +6,17 @@ import ProfilePage from "./ProfilePage";
 import SongPlaylist from "./SongPlaylist";
 import useBottombarStore from "../../state/bottombarStore";
 import ConfirmMessageWindow from "./ConfirmMessageWindow";
-import { useMediaBackgroundStore } from "../../state/mediaBackgroundStore.js";
-import { useEffect } from "react";
+import MediaPlayerDB from "../components/MediaPlayerDB";
 
 const HomePage = () => {
   const medsosItems = mapMedsos(medsos);
   const activeIndex = useBottombarStore((s) => s.activeIndex);
 
-  const { mediaBackground, fetchMediaBackground } = useMediaBackgroundStore();
-  useEffect(() => {
-    fetchMediaBackground();
-  }, [fetchMediaBackground]);
-const mediaUrl =
-  mediaBackground.length > 0
-    ? `http://localhost:3000/mediaBackground/7`
-    : "assets/images/background.png";
-
   const pageList = [<ProfilePage />, <SongPlaylist />];
 
   return (
     <div className="w-screen h-screen bg-cover bg-center relative overflow-hidden">
-      <MediaPlayer
-        src={mediaUrl}
-        className="object-cover h-full w-full absolute"
-        autoPlay
-      />
+      <MediaPlayerDB />
       <div className="w-screen h-screen inset-0 backdrop-blur-[50px] bg-black/30 absolute overflow-hidden flex flex-col items-center justify-end">
         <div className="w-[90%] flex justify-between items-center">
           <AppBar />

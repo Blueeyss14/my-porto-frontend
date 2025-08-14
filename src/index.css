@@ -17,6 +17,29 @@
      --text-shadow-white: 0 0 12px white;
 }
 
+:root {
+  scrollbar-width: thin;
+  scrollbar-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 
 .scrollbar-hide {
   scrollbar-width: none;

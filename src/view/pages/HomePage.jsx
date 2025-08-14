@@ -36,7 +36,7 @@ const HomePage = () => {
       <div className="absolute inset-0 -z-10 w-full h-full">
         <MediaPlayerDB />
       </div>
-      <div className="w-screen h-screen inset-0 backdrop-blur-[50px] bg-black/30 absolute overflow-hidden flex flex-col items-center justify-end">
+      <div className="w-screen h-screen inset-0 backdrop-blur-[50px] bg-black/25 absolute overflow-hidden flex flex-col items-center justify-end">
         <div className="w-[90%] flex justify-between items-center">
           <AppBar />
           {/* MEDSOS */}

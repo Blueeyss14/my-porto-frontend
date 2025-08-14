@@ -31,6 +31,7 @@ const ProjectDetail = () => {
       ))}
 
       <h1 className="text-3xl font-bold">{project.title}</h1>
+      <h1 className="whitespace-pre-line text-justify">{project.description}</h1>
     </div>
   );
 };

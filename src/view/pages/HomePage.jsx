@@ -7,16 +7,35 @@ import SongPlaylist from "./SongPlaylist";
 import useBottombarStore from "../../state/bottombarStore";
 import ConfirmMessageWindow from "./ConfirmMessageWindow";
 import MediaPlayerDB from "../components/MediaPlayerDB";
+import MediaPlayer from "../shared/components/MediaPlayer";
+import { useEffect, useRef } from "react";
 
 const HomePage = () => {
   const medsosItems = mapMedsos(medsos);
   const activeIndex = useBottombarStore((s) => s.activeIndex);
+  const homePageRef = useRef(null);
+
+    useEffect(() => {
+    if (homePageRef.current) {
+      homePageRef.current.style.position = 'fixed';
+      homePageRef.current.style.top = '0';
+      homePageRef.current.style.left = '0';
+      homePageRef.current.style.zIndex = '1000';
+    }
+
+    return () => {
+    };
+  }, []);
+
 
   const pageList = [<ProfilePage />, <SongPlaylist />];
 
   return (
     <div className="w-screen h-screen bg-cover bg-center relative overflow-hidden">
-      <MediaPlayerDB />
+      <MediaPlayer className="absolute inset-0 -z-999 w-full h-full" src="assets/images/background.png"/>
+      <div className="absolute inset-0 -z-10 w-full h-full">
+        <MediaPlayerDB />
+      </div>
       <div className="w-screen h-screen inset-0 backdrop-blur-[50px] bg-black/30 absolute overflow-hidden flex flex-col items-center justify-end">
         <div className="w-[90%] flex justify-between items-center">
           <AppBar />

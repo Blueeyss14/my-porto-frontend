@@ -16,7 +16,7 @@ export const useMediaBackgroundStore = create((set) => ({
         headers: { Authorization: apiKey },
       });
       
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) throw new Error(`err status: ${res.status}`);
       
       const data = await res.json();
       console.log('Raw API response:', data);

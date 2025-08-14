@@ -1,24 +1,39 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useMediaBackgroundStore } from "../../state/mediaBackgroundStore";
-import MediaPlayer from "../shared/components/MediaPlayer";
+// import MediaPlayer from "../shared/components/MediaPlayer";
 
 const MediaPlayerDB = () => {
-    const { mediaBackground, fetchMediaBackground, loading} = useMediaBackgroundStore();
-    useEffect(() => {
-      fetchMediaBackground();
-    }, [fetchMediaBackground]);
+  const { mediaBackground, fetchMediaBackground } = useMediaBackgroundStore();
+  const mediaRef = useRef(null);
 
-    if (loading || mediaBackground.length === 0) {
-        return  <MediaPlayer 
-        src="assets/images/background.png"
-        className="w-full h-full object-cover"
-      />
+  useEffect(() => {
+      fetchMediaBackground();
+  }, [fetchMediaBackground]);
+
+  useEffect(() => {
+    if (mediaRef.current) {
+      mediaRef.current.style.position = "fixed";
+      mediaRef.current.style.top = "0";
+      mediaRef.current.style.left = "0";
+      mediaRef.current.style.zIndex = "1000";
     }
-  
+
+    return () => {};
+  }, []);
+
+  // if (loading || mediaBackground.length === 0) {
+  //   return (
+  //     <MediaPlayer
+  //       src="assets/images/background.png"
+  //       className="w-full h-full object-cover pointer-events-none"
+  //     />
+  //   );
+  // }
+
   return (
     <>
       {mediaBackground[0] && (
-        <div className="w-full h-full">
+        <div className="w-full h-full pointer-events-none">
           {mediaBackground[0].type === "image" && (
             <img
               src={mediaBackground[0].url}

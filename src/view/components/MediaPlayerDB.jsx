@@ -18,11 +18,10 @@ const MediaPlayerDB = () => {
   return (
     <>
       {mediaBackground[0] && (
-        <div className="absolute w-full h-full">
+        <div className="w-full h-full">
           {mediaBackground[0].type === "image" && (
             <img
               src={mediaBackground[0].url}
-              alt="Media 1"
               className="w-full h-full object-cover"
               onError={(e) => {
                 console.error("Image load error:", mediaBackground[0].url);

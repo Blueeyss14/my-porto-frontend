@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import useSongPlaylistStore from "../../state/songPlaylistStore";
 import BlurBackgorund from "../shared/components/BlurBackgorund";
+import MediaPlayerDB from "../components/MediaPlayerDB";
 
 export default function SongPlaylist() {
   const ref = useRef(null);
@@ -69,13 +70,15 @@ export default function SongPlaylist() {
   return (
     <div className="flex w-[90%] h-full items-start">
       {/* MUSIC PLAYER */}
-      <div className="h-[68vh] min-w-100 mr-10 overflow-hidden ">
+      <div className="h-[68vh] min-w-100 max-w-100 mr-10 overflow-hidden ">
         <BlurBackgorund
           className="h-full w-full flex flex-col justify-end items-center px-5 py-7"
           roundedClass="rounded-[30px]"
           background="bg-white/2 border-white/2"
         >
-          <div className="flex-1 w-full rounded-[20px] border-2 border-white/10"></div>
+          <div className="flex-1 w-full rounded-[20px] border-2 border-white/10 overflow-hidden">
+            <MediaPlayerDB />
+          </div>
           {/* Song Title */}
           <h2 className="text-[1rem] text-homeBg2/70 my-4 line-clamp-1">
             {songs[currentSongIndex]?.song
@@ -109,7 +112,7 @@ export default function SongPlaylist() {
           <div className="w-full h-full flex flex-col">
             {songs.map((s, i) => (
               <div
-              key={s.song}
+                key={s.song}
                 className="w-full cursor-pointer"
                 onClick={() => handleSelectSong(i)}
               >

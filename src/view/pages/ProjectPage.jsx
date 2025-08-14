@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useProjectStore } from "../../state/projectStore";
 import MediaPlayer from "../shared/components/MediaPlayer";
-import MediaPlayerDB from "../components/MediaPlayerDB";
+import { useNavigate } from "react-router-dom";
 const ProjectPage = () => {
   const { projects, fetchProject } = useProjectStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProject();
@@ -37,12 +38,12 @@ const ProjectPage = () => {
                   <h1 className="font-semibold mb-1 line-clamp-1 text-[1.1rem]">
                     {project.title}
                   </h1>
-                  <h3 className="mb-3 line-clamp-1 text-[0.9rem] ">
+                  <h3 className="mb-5 line-clamp-1 text-[0.9rem] ">
                     {project.title}
                   </h3>
                 </div>
                 <div className="w-[100%]">
-                  <h1 className="text-justify line-clamp-3 text-[0.8rem] leading-6 text-homeBg2">
+                  <h1 className="text-justify line-clamp-2 text-[0.8rem] leading-6 text-homeBg2">
                     {project.description}
                   </h1>
                   {/* DIVIDER */}
@@ -53,7 +54,7 @@ const ProjectPage = () => {
                 </div>
                 {/* BUTTON - SEE */}
                 <div className=" w-full flex-1 flex justify-end items-end">
-                  <div className="bg-black/2 backdrop-blur-[20px] px-3 transition-all duration-50 py-2 rounded-[10px] cursor-pointer flex items-center justify-center border-r-2 border-t-2 border-homeBg/20 hover:border-0 shadow-white/8 shadow-[2px_2px_15px_black]">
+                  <div onClick={() => navigate(`/project-detail/${project.id}`)} className="bg-black/2 backdrop-blur-[20px] px-3 transition-all duration-50 py-2 rounded-[10px] cursor-pointer flex items-center justify-center border-r-2 border-t-2 border-homeBg/20 hover:border-0 shadow-white/8 shadow-[2px_2px_15px_black]">
                     <h1 className="mr-3 text-[0.9rem] text-homeBg2">See</h1>
                     <img
                       src="assets/icons/next.png"

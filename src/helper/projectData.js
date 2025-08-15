@@ -6,5 +6,6 @@ export function mapProjects(rawData) {
      category: item.category,
      is_pinned: item.is_pinned,
      image_url: item.image_url,
+     tags: item.tags
   }));
 }

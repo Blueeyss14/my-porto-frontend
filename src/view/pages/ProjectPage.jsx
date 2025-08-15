@@ -50,11 +50,20 @@ const ProjectPage = () => {
                   {project.description !== "" && (
                     <div className="w-full h-[1px] rounded-full bg-homeBg2/50 my-3"></div>
                   )}
-                  <div className="py-[2px] px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer">Github</div>
+                  <div className="w-full flex overflow-x-auto scrollbar-hide scroll-smooth">
+                    {project.tags.map((tag) => (
+                      <div className="py-3 px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer mr-3">
+                        <h2 className="leading-0">{tag}</h2>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 {/* BUTTON - SEE */}
                 <div className=" w-full flex-1 flex justify-end items-end">
-                  <div onClick={() => navigate(`/project-detail/${project.id}`)} className="bg-white/5 backdrop-blur-[20px] px-3 transition-all duration-50 py-2 rounded-[10px] cursor-pointer flex items-center justify-center border-r-2 border-t-2 border-homeBg/20 hover:border-0 shadow-white/8 shadow-[2px_2px_15px_black]">
+                  <div
+                    onClick={() => navigate(`/project-detail/${project.id}`)}
+                    className="bg-white/5 backdrop-blur-[20px] px-3 transition-all duration-50 py-2 rounded-[10px] cursor-pointer flex items-center justify-center border-r-2 border-t-2 border-homeBg/20 hover:border-0 shadow-white/8 shadow-[2px_2px_15px_black]"
+                  >
                     <h1 className="mr-3 text-[0.9rem] text-homeBg2">See</h1>
                     <img
                       src="assets/icons/next.png"

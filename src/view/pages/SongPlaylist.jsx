@@ -70,14 +70,19 @@ export default function SongPlaylist() {
   return (
     <div className="flex w-[90%] h-full items-start">
       {/* MUSIC PLAYER */}
-      <div className="h-[68vh] min-w-100 max-w-100 mr-10 overflow-hidden ">
+      <div className="h-[68vh] [@media(max-width:900px)]:h-[70vh] min-w-100 max-w-100 mr-10 overflow-hidden [@media(max-width:900px)]:w-full [@media(max-width:900px)]:max-w-full [@media(max-width:900px)]:mr-0 [@media(max-width:900px)]:min-w-full">
         <BlurBackgorund
-          className="h-full w-full flex flex-col justify-end items-center px-5 py-7"
+          className="h-full w-full flex flex-col justify-end items-center px-5 py-7 [@media(max-width:900px)]:py-10"
           roundedClass="rounded-[30px]"
           background="bg-white/2 border-white/2"
         >
           <div className="flex-1 w-full rounded-[20px] border-2 border-white/10 overflow-hidden">
-            <MediaPlayerDB />
+            <div className="w-full h-full [@media(max-width:900px)]:hidden">
+              <MediaPlayerDB />
+            </div>
+            <div className="w-full h-full [@media(min-width:900px)]:hidden [@media(max-width:900px)]:px-5">
+              <Playlist />
+            </div>
           </div>
           {/* Song Title */}
           <h2 className="text-[1rem] text-homeBg2/70 my-4 line-clamp-1">
@@ -106,10 +111,70 @@ export default function SongPlaylist() {
         </BlurBackgorund>
       </div>
       {/* PLAYLIST */}
+      <div className="w-full [@media(max-width:900px)]:hidden">
+        <Playlist />
+      </div>
+    </div>
+  );
+
+  function MusicPlayer() {
+    return (
+      <div className="w-full flex justify-around items-center my-1">
+        <audio
+          ref={ref}
+          src={songs[currentSongIndex]?.song}
+          preload="metadata"
+          onContextMenu={(e) => e.preventDefault()}
+          controlsList="nodownload"
+        />
+        {/* Prev */}
+        <div
+          onClick={handlePrevious}
+          className="w-6 h-6 cursor-pointer whitee group"
+        >
+          <img
+            src="assets/icons/prev.png"
+            className="w-full h-full object-contain hover-medsos rotate-180 img-shadow-white-on-hover"
+          />
+        </div>
+        {/* Play - Plause */}
+        <BlurBackgorund
+          onClick={togglePlayPause}
+          className="w-15 h-15 flex justify-center items-center cursor-pointer whitee group"
+          roundedClass="rounded-full"
+        >
+          {isPlaying ? (
+            <img
+              src="assets/icons/pause.png"
+              className="w-full h-full object-contain p-3 img-shadow-white-on-hover"
+            />
+          ) : (
+            <img
+              src="assets/icons/play.png"
+              className="w-full h-full object-contain p-3 ml-1 img-shadow-white-on-hover"
+            />
+          )}
+        </BlurBackgorund>
+        {/* Next */}
+        <div
+          onClick={handleNext}
+          className="w-6 h-6 cursor-pointer whitee group"
+        >
+          <img
+            src="assets/icons/prev.png"
+            className="w-full h-full object-contain img-shadow-white-on-hover"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  function Playlist() {
+    return (
       <div className="h-full w-full flex-col">
-        <h1 className="font-bold text-[3rem] text-homeBg2 mb-3">Playlist</h1>
+        <h1 className="font-bold text-[3rem] text-homeBg2 mb-3 [@media(max-width:900px)]:hidden">Playlist</h1>
         <div className="flex w-full h-full overflow-y-auto scrollbar-hide py-5">
-          <div className="w-full h-full flex flex-col">
+          <div className="w-full h-[60vh] flex flex-col pb-5">
             {songs.map((s, i) => (
               <div
                 key={s.song}
@@ -163,58 +228,6 @@ export default function SongPlaylist() {
           </div>
         </div>
         ;
-      </div>
-    </div>
-  );
-
-  function MusicPlayer() {
-    return (
-      <div className="w-full flex justify-around items-center my-1">
-        <audio
-          ref={ref}
-          src={songs[currentSongIndex]?.song}
-          preload="metadata"
-          onContextMenu={(e) => e.preventDefault()}
-          controlsList="nodownload"
-        />
-        {/* Prev */}
-        <div
-          onClick={handlePrevious}
-          className="w-6 h-6 cursor-pointer whitee group"
-        >
-          <img
-            src="assets/icons/prev.png"
-            className="w-full h-full object-contain hover-medsos rotate-180 img-shadow-white-on-hover"
-          />
-        </div>
-        {/* Play - Plause */}
-        <BlurBackgorund
-          onClick={togglePlayPause}
-          className="w-15 h-15 flex justify-center items-center cursor-pointer whitee group"
-          roundedClass="rounded-full"
-        >
-          {isPlaying ? (
-            <img
-              src="assets/icons/pause.png"
-              className="w-full h-full object-contain p-3 img-shadow-white-on-hover"
-            />
-          ) : (
-            <img
-              src="assets/icons/play.png"
-              className="w-full h-full object-contain p-3 ml-1 img-shadow-white-on-hover"
-            />
-          )}
-        </BlurBackgorund>
-        {/* Next */}
-        <div
-          onClick={handleNext}
-          className="w-6 h-6 cursor-pointer whitee group"
-        >
-          <img
-            src="assets/icons/prev.png"
-            className="w-full h-full object-contain img-shadow-white-on-hover"
-          />
-        </div>
       </div>
     );
   }

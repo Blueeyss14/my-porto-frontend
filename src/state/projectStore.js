@@ -27,7 +27,8 @@ export const useProjectStore = create((set) => ({
         category: item.category,
         is_pinned: item.is_pinned,
         image_url: item.image_url.map(img => `${baseUrl}/${img.url}`),
-        tags: Array.isArray(item.tags) ? item.tags : JSON.parse(item.tags || '[]')
+        tags: Array.isArray(item.tags) ? item.tags : JSON.parse(item.tags || '[]'),
+        thumbnail: `${baseUrl}/${item.thumbnail}`
     }));
 
       set({ projects: mapped, loading: false });

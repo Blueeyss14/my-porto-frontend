@@ -20,18 +20,21 @@ const ProjectPage = () => {
       <div className="fixed w-full h-full inset-0 -z-99 border-0 overflow-hidden backdrop-blur-[60px] bg-black/15"></div>
       <div className="w-full h-full overflow-y-auto ">
         <div className="w-full flex flex-wrap font-customn overflow-hidden">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
               className="w-1/3 [@media(max-width:1400px)]:w-1/2 [@media(max-width:870px)]:w-full h-150 p-4 overflow-hidden"
             >
               <div className="w-full h-full flex flex-col items-center rounded-2xl overflow-hidden shadow-white/5 shadow-[05px_5px_15px_black] backdrop-blur-[60px] bg-homeBg/10 border-2 border-white/10 p-5">
                 <div className="w-full h-[50%] relative border-2 border-white/10 rounded-[10px] overflow-hidden">
-                  <img
-                    src={project.image_url[0]}
-                    alt={project.title}
-                    className="absolute w-full h-full object-cover hover:scale-150 transition-all duration-500 hover:rotate-3"
-                  />
+                  {project.thumbnail[index] && (
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="absolute w-full h-full object-cover hover:scale-150 transition-all duration-500 hover:rotate-3"
+                    />
+                  )}
+
                   <div className="bg-white/40 w-full h-full absolute pointer-events-none"></div>
                 </div>
                 <div className="w-[100%] mt-8 flex flex-col text-homeBg">

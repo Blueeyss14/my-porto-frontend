@@ -188,7 +188,7 @@ export default function SongPlaylist() {
                       : "font-normal text-homeBg/50"
                   }`}
                 >
-                  <h1 className="mr-4 text-[1.3rem]">#</h1>
+                  <h1 className="mr-4 text-[1.3rem] [@media(max-width:900px)]:hidden">#</h1>
                   <BlurBackgorund
                     background={`${
                       currentSongIndex === i

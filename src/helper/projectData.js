@@ -7,6 +7,8 @@ export function mapProjects(rawData) {
      is_pinned: item.is_pinned,
      image_url: item.image_url,
      tags: item.tags,
-     thumbnail: item.thumbnail
+     thumbnail: item.thumbnail,
+     contributing: item.contributing,
+     resources: item.resources,
   }));
 }

@@ -125,91 +125,71 @@ const ProjectDetail = () => {
                 </h2>
               </div>
             )}
-
-            <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
-              Contributing
-            </h2>
-            <table className="w-[60%] [@media(max-width:1200px)]:w-[90%] [@media(max-width:900px)]:w-full border-black table-fixed">
-              <thead>
-                <tr>
-                  <th className="px-2 py-2 border border-black text-left w-1/2">
-                    Name
-                  </th>
-                  <th className="px-2 py-2 border border-black text-left w-1/2">
-                    Link
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
-                    Namae Wa
-                  </td>
-                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
-                    <a
-                      href="https://example.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      https://example.com
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words">
-                    Project 2
-                  </td>
-                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words">
-                    <a
-                      href="https://google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      https://google.com
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="mb-20">
-              <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
-                Resources
-              </h2>
-              <ul className="list-disc pl-4 ml-4">
-                <li>
-                  <a
-                    href="	https://example.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    Github
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="	https://example.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    Playstore
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="	https://example.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline"
-                  >
-                    Vercel
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {/* CONTRUBUTING */}
+            {project.contributing &&
+              project.contributing.some((dev) => dev.name && dev.link) && (
+                <div>
+                  <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
+                    Contributing
+                  </h2>
+                  <table className="w-[60%] [@media(max-width:1200px)]:w-[90%] [@media(max-width:900px)]:w-full border-black table-fixed">
+                    <thead>
+                      <tr>
+                        <th className="px-2 py-2 border border-black text-left w-1/2">
+                          Name
+                        </th>
+                        <th className="px-2 py-2 border border-black text-left w-1/2">
+                          Link
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {project.contributing.map((dev) => (
+                        <tr>
+                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                            {dev.name}
+                          </td>
+                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                            <a
+                              href={dev.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline"
+                            >
+                              {dev.link}
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {/* RESOURCES */}
+            {project.resources &&
+              project.resources.some((dev) => dev.name && dev.link) && (
+                <div>
+                  <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
+                    Resources
+                  </h2>
+                  {project.resources.map((resource) => (
+                    <ul className="list-disc pl-4 ml-4">
+                      <li>
+                        <a
+                          href={resource.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline"
+                        >
+                          {resource.name}
+                        </a>
+                      </li>
+                    </ul>
+                  ))}
+                </div>
+              )}
+              {/* WHITE SPACE */}
+              <div className="w-full h-20"></div>
           </div>
         </div>
       </div>

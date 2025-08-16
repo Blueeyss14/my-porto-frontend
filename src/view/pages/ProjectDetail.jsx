@@ -23,12 +23,6 @@ const ProjectDetail = () => {
 
   if (!project) return <div className="text-black p-5">Loading...</div>;
 
-  const heightScreen = 30;
-  const heightScreenDouble = heightScreen * 2;
-
-  const mdHeightScreen = 20;
-  const mdHeightScreenDouble = mdHeightScreen * 2;
-
   function clickThumbnail() {
     setIsClicked((click) => !click);
   }
@@ -57,15 +51,19 @@ const ProjectDetail = () => {
   return (
     <div className="relative font-custom bg-homeBg">
       <div className="absolute w-full">
+        {/* BANNER */}
         <div
-          className={`absolute w-full bg-amber-100 h-[${heightScreen}vh] [@media(max-width:600px)]:h-[${mdHeightScreen}vh]`}
-        ></div>
+          className={`absolute w-full bg-gray-400 h-[30vh] [@media(max-width:600px)]:h-[20vh]`}
+        >
+          <img src={project.thumbnail} className="absolute w-full h-full object-cover" />
+          <div className="absolute w-full h-full bg-black/50 backdrop-blur-[10px]"></div>
+        </div>
         <div
-          className={`absolute w-full flex items-center justify-center h-[${heightScreenDouble}vh] [@media(max-width:600px)]:h-[${mdHeightScreenDouble}vh]`}
+          className={`absolute w-full flex items-center justify-center h-[60vh] [@media(max-width:600px)]:h-[40vh]`}
         >
           {/* THUMBNAIL */}
-          <div className="w-[90%] h-[70%] [@media(max-width:550px)]:h-[50%]">
-            <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden">
+          <div className="w-[90%] h-[70%] [@media(max-width:550px)]:h-[45%]">
+            <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full cursor-pointer rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden border-x-2 border-t-2 border-homeBg2 shadow-black/30 shadow-[2px_2px_20px_black]">
               <img
                 onClick={clickThumbnail}
                 src={project.thumbnail}
@@ -76,7 +74,7 @@ const ProjectDetail = () => {
         </div>
 
         <div
-          className={`w-full overflow-hidden h-[${heightScreenDouble}vh] [@media(max-width:600px)]:h-[${mdHeightScreenDouble}vh]`}
+          className={`w-full overflow-hidden h-[60vh] [@media(max-width:600px)]:h-[40vh]`}
         ></div>
         {/* IMAGES */}
 
@@ -108,10 +106,11 @@ const ProjectDetail = () => {
           </div>
         </div>
       </div>
+      {/* THUMBNAIL */}
       {isClicked && (
         <div
           onClick={clickThumbnail}
-          className="fixed w-full h-screen backdrop-blur-[20px] bg-black/50 overflow-hidden py-20"
+          className="fixed w-full h-full backdrop-blur-[20px] bg-black/50 overflow-hidden py-20"
         >
           <img
             src={project.thumbnail}
@@ -145,36 +144,54 @@ function Images({
   return (
     <div
       onClick={closeImageModal}
-      className="fixed inset-0 w-full h-screen backdrop-blur-[20px] bg-black/50 overflow-hidden flex items-center justify-center z-50"
+      className="fixed inset-0 w-full h-full backdrop-blur-[20px] bg-black/60 overflow-hidden flex items-center justify-center z-50 py-5"
     >
-      <div className="relative w-full h-full flex items-center justify-center px-20 py-10">
-        <button
+      <div className="relative w-full h-full flex items-center justify-center ">
+        {/* CLOSE */}
+        <div
+          className="absolute w-10 h-10 bg-black/40 rounded-full right-2 top-2 transform -translate-y-1/2 flex justify-center items-center p-3 cursor-pointer"
+          onClick={closeImageModal}
+        >
+          <img
+            src="/assets/icons/close.png"
+            className="w-full h-full object-contain img-white"
+          />
+        </div>
+        {/* PREV BUTTON */}
+        <div
+          className="absolute w-15 h-15 [@media(max-width:700px)]:w-9 [@media(max-width:700px)]:h-9 bg-black/40 rounded-full left-2 top-1/2 transform -translate-y-1/2 flex justify-center items-center p-5 [@media(max-width:700px)]:p-2.5 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             prevImage();
           }}
-          className="absolute left-5 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 text-white text-xl font-bold transition-all duration-200 z-10"
         >
-          &#8249;
-        </button>
+          <img
+            src="/assets/icons/ios_arrow.png"
+            className="w-full h-full object-contain rotate-180 img-white"
+          />
+        </div>
 
+        {/* IMAGES */}
         <img
           src={project.image_url[selectedImageIndex]}
           className="max-h-full max-w-full object-contain rounded-2xl"
           onClick={(e) => e.stopPropagation()}
         />
-
-        <button
+        {/* NEXT BUTTON */}
+        <div
+          className="absolute w-15 h-15 [@media(max-width:700px)]:w-9 [@media(max-width:700px)]:h-9 bg-black/40 rounded-full right-2 top-1/2 transform -translate-y-1/2 flex justify-center items-center p-5 [@media(max-width:700px)]:p-2.5 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             nextImage();
           }}
-          className="absolute right-5 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 rounded-full px-4 py-2 text-white text-xl font-bold transition-all duration-200 z-10"
         >
-          &#8250;
-        </button>
-
-        <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white/20 rounded-full px-4 py-2">
+          <img
+            src="/assets/icons/ios_arrow.png"
+            className="w-full h-full object-contain img-white"
+          />
+        </div>
+        {/*  */}
+        <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-black/50 rounded-full px-4 py-2">
           <span className="text-white text-sm">
             {selectedImageIndex + 1} / {project.image_url.length}
           </span>
@@ -183,23 +200,3 @@ function Images({
     </div>
   );
 }
-
-//   return (
-//     <div className="w-full h-full p-5 text-black flex flex-col items-center px-10">
-//       <div className="w-full h-full rounded-2xl overflow-hidden">
-//       <img src={project.thumbnail} alt="" />
-
-//       </div>
-// {project.image_url.map((img) => (
-//   <img
-//     src={img}
-//     alt={project.title}
-//     className="w-full max-w-lg h-auto mb-5 rounded-lg object-cover"
-//   />
-// ))}
-
-//       <h1 className="text-3xl font-bold">{project.title}</h1>
-//       <h1 className="whitespace-pre-line text-justify">{project.description}</h1>
-//     </div>
-//   );
-// };

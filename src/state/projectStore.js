@@ -23,6 +23,7 @@ export const useProjectStore = create((set) => ({
       const mapped = mapProjects(data.data).map(item => ({
         id: item.id,
         title: item.title,
+        subtitle: item.subtitle,
         description: item.description,
         category: item.category,
         is_pinned: item.is_pinned,

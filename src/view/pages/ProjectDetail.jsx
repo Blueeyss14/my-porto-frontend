@@ -75,6 +75,7 @@ const ProjectDetail = () => {
           {/* THUMBNAIL */}
           <div className="w-[90%] h-[70%] [@media(max-width:600px)]:h-[45%]">
             <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full cursor-pointer rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden border-x-2 border-t-2 border-homeBg">
+
               <img
                 onClick={clickThumbnail}
                 src={project.thumbnail}
@@ -89,24 +90,27 @@ const ProjectDetail = () => {
         ></div>
         {/* IMAGES */}
 
-        <div className="w-full flex justify-center amber">
+        <div className="w-full flex justify-center">
           <div className="w-[90%]">
-            <div className="h-[25vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide">
-              {project.image_url.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={project.title}
-                  className="h-full object-contain rounded-[10px] mx-2 cursor-pointer"
-                  onClick={() => clickImage(index)}
-                />
-              ))}
-            </div>
+            {project.image_url.some((url) => url) && (
+              <div className="h-[25vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide">
+                {project.image_url.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={project.title}
+                    className="h-full object-contain rounded-[10px] mx-2 cursor-pointer"
+                    onClick={() => clickImage(index)}
+                  />
+                ))}
+              </div>
+            )}
+
             <h1 className="font-bold text-[3.5rem] mt-5 [@media(max-width:700px)]:text-[2.5rem]">
               {project.title}
             </h1>
             <h2 className="font-medium text-[1.5rem] mb-5 [@media(max-width:700px)]:text-[1.2rem]">
-              Telyu Sigma
+              {project.subtitle}
             </h2>
             <div className="flex flex-wrap overflow-x-auto.scrollbar-hide max-w-[50%] [@media(max-width:1100px)]:max-w-full">
               {project.tags.map((tag) => (
@@ -165,7 +169,7 @@ const ProjectDetail = () => {
                   </table>
                 </div>
               )}
-              {/* RESOURCES */}
+            {/* RESOURCES */}
             {project.resources &&
               project.resources.some((dev) => dev.name && dev.link) && (
                 <div>
@@ -188,8 +192,8 @@ const ProjectDetail = () => {
                   ))}
                 </div>
               )}
-              {/* WHITE SPACE */}
-              <div className="w-full h-20"></div>
+            {/* WHITE SPACE */}
+            <div className="w-full h-20"></div>
           </div>
         </div>
       </div>

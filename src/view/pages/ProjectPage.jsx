@@ -42,7 +42,7 @@ const ProjectPage = () => {
                     {project.title}
                   </h1>
                   <h3 className="mb-5 line-clamp-1 text-[0.9rem] ">
-                    {project.title}
+                    {project.subtitle}
                   </h3>
                 </div>
                 <div className="w-[100%]">

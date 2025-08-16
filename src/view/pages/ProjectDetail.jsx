@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useProjectStore } from "../../state/projectStore";
 import { useEffect, useState } from "react";
 
@@ -9,6 +9,7 @@ const ProjectDetail = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!projects || projects.length === 0) fetchProject();
@@ -21,7 +22,7 @@ const ProjectDetail = () => {
     }
   }, [projects, id]);
 
-  if (!project) return <div className="text-black p-5">Loading...</div>;
+  if (!project) return;
 
   function clickThumbnail() {
     setIsClicked((click) => !click);
@@ -55,15 +56,25 @@ const ProjectDetail = () => {
         <div
           className={`absolute w-full bg-gray-400 h-[30vh] [@media(max-width:600px)]:h-[20vh]`}
         >
-          <img src={project.thumbnail} className="absolute w-full h-full object-cover" />
+          <img
+            src={project.thumbnail}
+            className="absolute w-full h-full object-cover"
+          />
           <div className="absolute w-full h-full bg-black/50 backdrop-blur-[10px]"></div>
+          {/* HOME */}
+          <div
+            onClick={() => navigate("/", { replace: true })}
+            className="absolute bg-black/30 p-2.5 m-5 w-fit h-fit rounded-full cursor-pointer z-99"
+          >
+            <img src="/assets/icons/home.png" className="w-6 h-6 img-white" />
+          </div>
         </div>
         <div
           className={`absolute w-full flex items-center justify-center h-[60vh] [@media(max-width:600px)]:h-[40vh]`}
         >
           {/* THUMBNAIL */}
-          <div className="w-[90%] h-[70%] [@media(max-width:550px)]:h-[45%]">
-            <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full cursor-pointer rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden border-x-2 border-t-2 border-homeBg2 shadow-black/30 shadow-[2px_2px_20px_black]">
+          <div className="w-[90%] h-[70%] [@media(max-width:600px)]:h-[45%]">
+            <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full cursor-pointer rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden border-x-2 border-t-2 border-homeBg">
               <img
                 onClick={clickThumbnail}
                 src={project.thumbnail}
@@ -74,11 +85,11 @@ const ProjectDetail = () => {
         </div>
 
         <div
-          className={`w-full overflow-hidden h-[60vh] [@media(max-width:600px)]:h-[40vh]`}
+          className={`w-full overflow-hidden h-[60vh] [@media(max-width:600px)]:h-[35vh]`}
         ></div>
         {/* IMAGES */}
 
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center amber">
           <div className="w-[90%]">
             <div className="h-[25vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide">
               {project.image_url.map((img, index) => (
@@ -91,18 +102,114 @@ const ProjectDetail = () => {
                 />
               ))}
             </div>
-            <h1 className="font-bold text-[5rem] mt-5">{project.title}</h1>
-            <h2 className="font-semibold text-[1.5rem]">Telyu Sigma</h2>
-            <div className="flex overflow-x-auto.scrollbar-hide">
+            <h1 className="font-bold text-[3.5rem] mt-5 [@media(max-width:700px)]:text-[2.5rem]">
+              {project.title}
+            </h1>
+            <h2 className="font-medium text-[1.5rem] mb-5 [@media(max-width:700px)]:text-[1.2rem]">
+              Telyu Sigma
+            </h2>
+            <div className="flex flex-wrap overflow-x-auto.scrollbar-hide max-w-[50%] [@media(max-width:1100px)]:max-w-full">
               {project.tags.map((tag) => (
-                <div className="border-2 py-1 px-3 rounded-full mr-2 my-2">
-                  <h1 className="leading-5 text-[0.9rem]">{tag}</h1>
+                <div className="border-2 px-3 rounded-full mr-3 my-1">
+                  <h1 className="leading-7 text-[0.8rem]">{tag}</h1>
                 </div>
               ))}
             </div>
-            <h2 className="whitespace-pre-line leading-8 text-justify mt-5">
-              {project.description}
+            {project.description && (
+              <div>
+                <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
+                  Description
+                </h2>
+                <h2 className="whitespace-pre-line leading-8 text-justify w-[60%] [@media(max-width:1200px)]:w-[90%] [@media(max-width:900px)]:w-full">
+                  {project.description}
+                </h2>
+              </div>
+            )}
+
+            <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
+              Contributing
             </h2>
+            <table className="w-[60%] [@media(max-width:1200px)]:w-[90%] [@media(max-width:900px)]:w-full border-black table-fixed">
+              <thead>
+                <tr>
+                  <th className="px-2 py-2 border border-black text-left w-1/2">
+                    Name
+                  </th>
+                  <th className="px-2 py-2 border border-black text-left w-1/2">
+                    Link
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                    Namae Wa
+                  </td>
+                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                    <a
+                      href="https://example.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      https://example.com
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words">
+                    Project 2
+                  </td>
+                  <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words">
+                    <a
+                      href="https://google.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      https://google.com
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="mb-20">
+              <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
+                Resources
+              </h2>
+              <ul className="list-disc pl-4 ml-4">
+                <li>
+                  <a
+                    href="	https://example.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    Github
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="	https://example.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    Playstore
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="	https://example.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    Vercel
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -144,12 +251,12 @@ function Images({
   return (
     <div
       onClick={closeImageModal}
-      className="fixed inset-0 w-full h-full backdrop-blur-[20px] bg-black/60 overflow-hidden flex items-center justify-center z-50 py-5"
+      className="fixed inset-0 w-full h-full backdrop-blur-[20px] bg-black/60 overflow-hidden flex items-center justify-center z-50 p-5"
     >
       <div className="relative w-full h-full flex items-center justify-center ">
         {/* CLOSE */}
         <div
-          className="absolute w-10 h-10 bg-black/40 rounded-full right-2 top-2 transform -translate-y-1/2 flex justify-center items-center p-3 cursor-pointer"
+          className="absolute w-10 h-10 bg-black/40 rounded-full right-0 top-2 transform -translate-y-1/2 flex justify-center items-center p-3 cursor-pointer"
           onClick={closeImageModal}
         >
           <img

@@ -1,10 +1,11 @@
 import { create } from 'zustand';
-import { songData, mapSong } from '../helper/songData';
+import { mapSong } from '../helper/songData';
 
-const songs = mapSong(songData);
+const baseUrl = import.meta.env.VITE_BASE_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 const useSongPlaylistStore = create((set, get) => ({
-  isPlaying: false,
+ isPlaying: false,
   currentTime: 0,
   duration: 0,
   volume: 1,
@@ -12,7 +13,8 @@ const useSongPlaylistStore = create((set, get) => ({
   audioRef: null,
   currentSongIndex: 0,
   isLoading: false,
-  songs,
+  songs: [],
+  error: null,
 
   setAudioRef: (ref) => set({ audioRef: ref }),
   setIsPlaying: (isPlaying) => set({ isPlaying }),
@@ -30,10 +32,33 @@ const useSongPlaylistStore = create((set, get) => ({
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   },
 
+
+  fetchSongs: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await fetch(`${baseUrl}/music`, {
+        headers: { Authorization: apiKey },
+      });
+      if (!res.ok) throw new Error(`err status: ${res.status}`);
+      const data = await res.json();
+
+      const mapped = mapSong(data.data).map(item => ({
+        song_name: item.song_name,
+        song_file: `${baseUrl}/uploads/music/${encodeURIComponent(item.song_file)}`
+      }));
+
+      set({ songs: mapped, isLoading: false });
+    } catch (err) {
+      console.error('Fetch songs error:', err);
+      set({ songs: [], isLoading: false, error: err.message });
+    }
+  },
+
   setupAudioListeners: () => {
     const audio = get().audioRef;
     if (!audio) return;
 
+    // Remove existing listeners first
     audio.removeEventListener('timeupdate', audio._updateTime);
     audio.removeEventListener('loadedmetadata', audio._setAudioDuration);
     audio.removeEventListener('play', audio._handlePlay);
@@ -67,7 +92,6 @@ const useSongPlaylistStore = create((set, get) => ({
 
     const handleCanPlay = () => {
       get().setIsLoading(false);
-      get().autoPlayFirstSong();
     };
 
     const setAudioDuration = () => {
@@ -182,8 +206,11 @@ const useSongPlaylistStore = create((set, get) => ({
     const clickX = e.nativeEvent.offsetX;
     const width = e.currentTarget.offsetWidth;
     const newTime = (clickX / width) * get().duration;
-    audio.currentTime = newTime;
-    get().setCurrentTime(newTime);
+    
+    if (!isNaN(newTime) && isFinite(newTime)) {
+      audio.currentTime = newTime;
+      get().setCurrentTime(newTime);
+    }
   },
 
   handleVolumeChange: (e) => {
@@ -247,7 +274,7 @@ const useSongPlaylistStore = create((set, get) => ({
       audio.pause();
     }
 
-    audio.src = song.song;
+    audio.src = song.song_file;
     audio.load();
 
     try {
@@ -256,6 +283,15 @@ const useSongPlaylistStore = create((set, get) => ({
       console.error('Playback error:', err);
       get().setIsPlaying(false);
       get().setIsLoading(false);
+    }
+  },
+
+  autoPlayFirstSong: () => {
+    const { songs, currentSongIndex, isPlaying } = get();
+    if (songs.length > 0 && !isPlaying) {
+      if (currentSongIndex === 0) {
+        get().playSongByIndex(0);
+      }
     }
   },
 }));

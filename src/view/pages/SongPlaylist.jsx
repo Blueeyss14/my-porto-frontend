@@ -22,12 +22,17 @@ export default function SongPlaylist() {
     setupAudioListeners,
     currentSongIndex,
     songs,
+    fetchSongs,
     playNextSong,
     playPreviousSong,
     playSongByIndex,
   } = useSongPlaylistStore();
 
   const progressPercent = getProgressPercent();
+
+  useEffect(() => {
+    fetchSongs();
+  }, [fetchSongs]);
 
   useEffect(() => {
     if (ref.current) {
@@ -54,6 +59,15 @@ export default function SongPlaylist() {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    if (isPlaying) {
+      ref.current.play().catch(() => {});
+    } else {
+      ref.current.pause();
+    }
+  }, [isPlaying, currentSongIndex]);
 
   const handleSelectSong = (index) => {
     playSongByIndex(index);
@@ -86,11 +100,7 @@ export default function SongPlaylist() {
           </div>
           {/* Song Title */}
           <h2 className="text-[1rem] text-homeBg2/70 my-4 line-clamp-1">
-            {songs[currentSongIndex]?.song
-              .split("/")
-              .pop()
-              .replace(/\.[^/.]+$/, "")
-              .replace(/[-_]/g, " ")}
+            {songs[currentSongIndex]?.song_name}
           </h2>
           <div
             className="w-full h-1 bg-homeBg2/50 overflow-hidden cursor-pointer my-1 rounded-full"
@@ -122,7 +132,7 @@ export default function SongPlaylist() {
       <div className="w-full flex justify-around items-center my-1">
         <audio
           ref={ref}
-          src={songs[currentSongIndex]?.song}
+          src={songs[currentSongIndex]?.song_file || ""}
           preload="metadata"
           onContextMenu={(e) => e.preventDefault()}
           controlsList="nodownload"
@@ -137,7 +147,7 @@ export default function SongPlaylist() {
             className="w-full h-full object-contain hover-medsos rotate-180 img-shadow-white-on-hover"
           />
         </div>
-        {/* Play - Plause */}
+        {/* Play - Pause */}
         <BlurBackgorund
           onClick={togglePlayPause}
           className="w-15 h-15 flex justify-center items-center cursor-pointer whitee group"
@@ -172,12 +182,14 @@ export default function SongPlaylist() {
   function Playlist() {
     return (
       <div className="h-full w-full flex-col">
-        <h1 className="font-bold text-[3rem] text-homeBg2 mb-3 [@media(max-width:900px)]:hidden">Playlist</h1>
+        <h1 className="font-bold text-[3rem] text-homeBg2 mb-3 [@media(max-width:900px)]:hidden">
+          Playlist
+        </h1>
         <div className="flex w-full h-full overflow-y-auto scrollbar-hide py-5">
           <div className="w-full h-[60vh] flex flex-col pb-5">
             {songs.map((s, i) => (
               <div
-                key={s.song}
+                key={s.song_file}
                 className="w-full cursor-pointer"
                 onClick={() => handleSelectSong(i)}
               >
@@ -188,7 +200,9 @@ export default function SongPlaylist() {
                       : "font-normal text-homeBg/50"
                   }`}
                 >
-                  <h1 className="mr-4 text-[1.3rem] [@media(max-width:900px)]:hidden">#</h1>
+                  <h1 className="mr-4 text-[1.3rem] [@media(max-width:900px)]:hidden">
+                    #
+                  </h1>
                   <BlurBackgorund
                     background={`${
                       currentSongIndex === i
@@ -201,11 +215,7 @@ export default function SongPlaylist() {
                   >
                     <div className="w-full">
                       <h1 className="overflow-ellipsis line-clamp-1 text-[0.9rem] ">
-                        {s.song
-                          .split("/")
-                          .pop()
-                          .replace(/\.[^/.]+$/, "")
-                          .replace(/[-_]/g, " ")}
+                        {s.song_name}
                       </h1>
                       <div className="w-full flex justify-start">
                         <h1 className="text-[10px] mb-1">{`${

@@ -17,7 +17,7 @@ const ProjectPage = () => {
         src="assets/images/background.png"
         className="w-full h-full object-cover fixed -z-99 overflow-hidden"
       ></MediaPlayer>
-      <div className="fixed w-full h-full inset-0 -z-99 border-0 overflow-hidden backdrop-blur-[60px] bg-black/15"></div>
+      <div className="fixed w-full h-full inset-0 -z-99 border-0 overflow-hidden backdrop-blur-[60px] bg-black/20"></div>
       <div className="w-full h-full overflow-y-auto ">
         <div className="w-full flex flex-wrap font-customn overflow-hidden">
           {projects.map((project, index) => (

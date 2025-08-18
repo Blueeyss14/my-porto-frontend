@@ -111,11 +111,12 @@
     transform: translateY(-50px) scaleX(0.8);
     opacity: 0;
   }
-    60% {
-    transform: perspective(1000px) rotateX(-3deg) scale(1.05);
+    90% {
+    transform: perspective(1000px) rotateX(-3deg) scale(1);
     opacity: 1;
   }
   100% {
+    transform: perspective(1000px) rotateX(0deg) scale(1.0);
     opacity: 1;
 
   }

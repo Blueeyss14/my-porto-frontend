@@ -2,22 +2,35 @@ import { useEffect, useState } from "react";
 import { useProjectStore } from "../../state/projectStore";
 import MediaPlayer from "../shared/components/MediaPlayer";
 import { useNavigate } from "react-router-dom";
+import { useCategoryStore } from "../../state/categoryStore";
 
 const ProjectPage = () => {
   const { projects, fetchProject } = useProjectStore();
+  const { categories, fetchCategory } = useCategoryStore();
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
+  const activeIndex = useCategoryStore((s) => s.activeIndex);
+  const setClickedIndex = useCategoryStore((s) => s.setClickedIndex);
 
   function handleClick() {
     setIsClicked((isClicked) => !isClicked);
+  }
+
+  function clickCategory(index) {
+    setClickedIndex(index);
+    handleClick();
   }
 
   useEffect(() => {
     fetchProject();
   }, [fetchProject]);
 
+  useEffect(() => {
+    fetchCategory();
+  }, [fetchCategory]);
+
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full h-screen overflow-hidden font-custom">
       <MediaPlayer
         src="assets/images/background.png"
         className="w-full h-full object-cover fixed -z-99 overflow-hidden"
@@ -35,29 +48,49 @@ const ProjectPage = () => {
       )}
       {/* NAVBAR */}
 
-      <div className="fixed w-full h-20 flex items-center z-50 backdrop-blur-[10px]">
-        <div
+      <div className="fixed w-full flex items-center z-50 backdrop-blur-[10px] justify-center">
+        <div className="w-[97%] h-20 flex items-center">
+          <div
+            onClick={handleClick}
+            className="cursor-pointer bg-black/20 rounded-full"
+          >
+            <img
+              src="/assets/icons/ios_arrow.png"
+              className={`transition-all img-white w-5 h-5 m-3 ${
+                isClicked ? "rotate-270" : "rotate-90"
+              }`}
+            />
+          </div>
+          {/* CATEGORY TITLE */}
+          <h1 
           onClick={handleClick}
-          className="ml-10 cursor-pointer bg-black/20 rounded-full"
-        >
-          <img
-            src="/assets/icons/ios_arrow.png"
-            className={`transition-all img-white w-5 h-5 m-3 ${
-              isClicked ? "rotate-270" : "rotate-90"
-            }`}
-          />
+          className="text-homeBg ml-5 font-semibold text-2xl line-clamp-1">
+            {categories[activeIndex]?.name.toUpperCase()}
+          </h1>
         </div>
       </div>
       {/* DROPDOWN */}
       {isClicked && (
-        <div className="animate-dropdown absolute w-50 h-20 bg-amber-50 z-50 mt-20 ml-10 rounded-[10px] ${isClicked ? 'rotate-270' : 'rotate-90'}"></div>
+        <div className="animate-dropdown overflow-y-auto max-h-50 scrollbar-hide overflow-clip absolute w-50 bg-amber-50 z-50 mt-20 ml-10 rounded-[10px] ${isClicked ? 'rotate-270' : 'rotate-90'}">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              onClick={() => clickCategory(index)}
+              className={`${
+                activeIndex == index ? "bg-blue-500" : ""
+              } w-full p-2 cursor-pointer`}
+            >
+              <h1>{category.name}</h1>
+            </div>
+          ))}
+        </div>
       )}
       <div className="w-full h-full">
         {/* <MediaPlayer className=""/> */}
 
         <div className="fixed w-full h-full inset-0 -z-99 border-0 overflow-hidden backdrop-blur-[60px] bg-black/20"></div>
         <div className="w-full h-full overflow-y-auto pb-30 py-20 scroll-smooth">
-          <div className="w-full flex flex-wrap font-customn overflow-hidden">
+          <div className="w-full flex flex-wrap overflow-hidden">
             {projects.map((project, index) => (
               <div
                 key={project.id}

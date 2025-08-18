@@ -64,7 +64,7 @@ const ProjectDetail = () => {
           {/* HOME */}
           <div
             onClick={() => navigate("/", { replace: true })}
-            className="absolute bg-black/30 p-2.5 m-5 w-fit h-fit rounded-full cursor-pointer z-99"
+            className="absolute bg-black/30 p-2.5 m-5 w-fit h-fit rounded-full cursor-pointer z-20"
           >
             <img src="/assets/icons/home.png" className="w-6 h-6 img-white" />
           </div>
@@ -201,7 +201,7 @@ const ProjectDetail = () => {
       {isClicked && (
         <div
           onClick={clickThumbnail}
-          className="fixed w-full h-full backdrop-blur-[20px] bg-black/50 overflow-hidden py-20"
+          className="fixed w-full h-full backdrop-blur-[20px] bg-black/50 overflow-hidden py-20 z-30"
         >
           <img
             src={project.thumbnail}

@@ -93,13 +93,13 @@ const ProjectDetail = () => {
         <div className="w-full flex justify-center">
           <div className="w-[90%]">
             {project.image_url.some((url) => url) && (
-              <div className="h-[25vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide">
+              <div className="h-[28vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide py-2">
                 {project.image_url.map((img, index) => (
                   <img
                     key={index}
                     src={img}
                     alt={project.title}
-                    className="h-full object-contain rounded-[10px] mx-2 cursor-pointer"
+                    className="h-full object-contain rounded-[5px] mx-2 cursor-pointer shadow-black/10 shadow-[05px_5px_5px_black]"
                     onClick={() => clickImage(index)}
                   />
                 ))}

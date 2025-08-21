@@ -27,7 +27,7 @@ export const useProjectStore = create((set) => ({
         description: item.description,
         category: item.category,
         is_pinned: item.is_pinned,
-        image_url: item.image_url.map(img => `${baseUrl}/${img.url}`),
+        image_url: item.image_url.map(img => `${baseUrl}/${img}`),
         tags: Array.isArray(item.tags) ? item.tags : JSON.parse(item.tags || '[]'),
         thumbnail: `${baseUrl}/${item.thumbnail}`,
         contributing: Array.isArray(item.contributing) ? item.contributing : JSON.parse(item.contributing || '[]'),

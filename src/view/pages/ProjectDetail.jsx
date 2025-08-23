@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const { projects, fetchProject } = useProjectStore();
+  const { projects, fetchProject, loading } = useProjectStore();
   const [project, setProject] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -49,6 +49,13 @@ const ProjectDetail = () => {
     );
   }
 
+  if (loading)
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+
   return (
     <div className="relative font-custom bg-homeBg">
       <div className="absolute w-full">
@@ -75,7 +82,6 @@ const ProjectDetail = () => {
           {/* THUMBNAIL */}
           <div className="w-[90%] h-[70%] [@media(max-width:600px)]:h-[45%]">
             <div className="bg-gray-200 w-[600px] [@media(max-width:850px)]:w-[70%] h-full cursor-pointer rounded-4xl [@media(max-width:600px)]:rounded-2xl overflow-hidden border-x-2 border-t-2 border-homeBg">
-
               <img
                 onClick={clickThumbnail}
                 src={project.thumbnail}
@@ -99,7 +105,7 @@ const ProjectDetail = () => {
                     key={index}
                     src={img}
                     alt={project.title}
-                    className="h-full object-contain rounded-[5px] mx-2 cursor-pointer shadow-black/10 shadow-[05px_5px_5px_black]"
+                    className="h-full object-contain rounded-[10px] [@media(max-width:450px)]:rounded-[5px] mx-2 cursor-pointer shadow-black/10 shadow-[05px_5px_5px_black]"
                     onClick={() => clickImage(index)}
                   />
                 ))}

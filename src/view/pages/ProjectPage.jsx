@@ -53,7 +53,7 @@ const ProjectPage = () => {
         >
           <img
             src="/assets/images/Anime-Pointing.png"
-            className="absolute w-full h-full ml-20 [@media(max-width:400px)]:ml-25 [@media(max-width:400px)]:scale-x-120"
+            className="absolute w-full h-full ml-20 [@media(max-width:400px)]:ml-25 [@media(max-width:400px)]:scale-x-130 left-5"
           />
         </div>
       )}

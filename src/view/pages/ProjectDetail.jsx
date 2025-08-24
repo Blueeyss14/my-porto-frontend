@@ -67,7 +67,7 @@ const ProjectDetail = () => {
             src={project.thumbnail}
             className="absolute w-full h-full object-cover"
           />
-          <div className="absolute w-full h-full bg-black/50 backdrop-blur-[10px]"></div>
+          <div className="absolute w-full h-full bg-black/30 backdrop-blur-[10px]"></div>
           {/* HOME */}
           <div
             onClick={() => navigate("/", { replace: true })}

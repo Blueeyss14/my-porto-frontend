@@ -132,7 +132,7 @@ export default function SongPlaylist() {
       <div className="w-full flex justify-around items-center my-1">
         <audio
           ref={ref}
-          src={songs[currentSongIndex]?.song_file || ""}
+          src={songs[currentSongIndex]?.song_file}
           preload="metadata"
           onContextMenu={(e) => e.preventDefault()}
           controlsList="nodownload"

@@ -41,10 +41,11 @@ const useSongPlaylistStore = create((set, get) => ({
       });
       if (!res.ok) throw new Error(`err status: ${res.status}`);
       const data = await res.json();
+      console.log('API API API Res:', data);
 
       const mapped = mapSong(data.data).map(item => ({
-        song_name: item.song_name,
-        song_file: `${baseUrl}/uploads/music/${encodeURIComponent(item.song_file)}`
+        ...item,
+        song_file: `${baseUrl}/music/${item.id}`
       }));
 
       set({ songs: mapped, isLoading: false });

@@ -140,15 +140,15 @@ const ProjectDetail = () => {
               project.contributing.some((dev) => dev.name && dev.link) && (
                 <div>
                   <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
-                    Contributing
+                    Contributor
                   </h2>
                   <table className="w-[60%] [@media(max-width:1200px)]:w-[90%] [@media(max-width:900px)]:w-full border-black table-fixed">
                     <thead>
                       <tr>
-                        <th className="px-2 py-2 border border-black text-left w-1/2">
+                        <th className="px-2 py-2 border border-black text-left w-1/2 text-[0.9rem]">
                           Name
                         </th>
-                        <th className="px-2 py-2 border border-black text-left w-1/2">
+                        <th className="px-2 py-2 border border-black text-left w-1/2 text-[0.9rem]">
                           Link
                         </th>
                       </tr>
@@ -156,10 +156,10 @@ const ProjectDetail = () => {
                     <tbody>
                       {project.contributing.map((dev) => (
                         <tr>
-                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-[0.9rem]">
                             {dev.name}
                           </td>
-                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-justify ">
+                          <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-[0.9rem]">
                             <a
                               href={dev.link}
                               target="_blank"

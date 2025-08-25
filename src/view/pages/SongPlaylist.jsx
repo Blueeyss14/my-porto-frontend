@@ -82,9 +82,9 @@ export default function SongPlaylist() {
   };
 
   return (
-    <div className="flex w-[90%] h-full items-start">
+    <div className="flex w-[90%] items-start">
       {/* MUSIC PLAYER */}
-      <div className="h-[68vh] [@media(max-width:900px)]:h-[70vh] min-w-100 max-w-100 mr-10 overflow-hidden [@media(max-width:900px)]:w-full [@media(max-width:900px)]:max-w-full [@media(max-width:900px)]:mr-0 [@media(max-width:900px)]:min-w-full">
+      <div className="[@media(max-height:841px)]:h-110 [@media(min-height:840px)]:h-140 h-150 min-w-95 max-w-100 mr-10 overflow-hidden [@media(max-width:900px)]:w-full [@media(max-width:900px)]:max-w-full [@media(max-width:900px)]:mr-0 [@media(max-width:900px)]:min-w-full">
         <BlurBackgorund
           className="h-full w-full flex flex-col justify-end items-center px-5 py-7 [@media(max-width:900px)]:py-10"
           roundedClass="rounded-[30px]"

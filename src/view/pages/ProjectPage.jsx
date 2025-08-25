@@ -40,7 +40,7 @@ const ProjectPage = () => {
   const pinnedProjects = projects.filter((p) => p.is_pinned === true);
 
   return (
-    <div className="w-full h-screen overflow-hidden font-custom">
+    <div className="w-full h-[calc(var(--vh)*100)] overflow-hidden font-custom">
       <MediaPlayer
         src="/images/background.png"
         className="w-full h-full object-cover fixed -z-99 overflow-hidden"
@@ -49,7 +49,7 @@ const ProjectPage = () => {
       {isClicked && (
         <div
           onClick={handleClick}
-          className="absolute animate-dropdown-opacity backdrop-blur-[10px] bg-black/20 h-screen w-full z-10 overflow-hidden"
+          className="absolute animate-dropdown-opacity backdrop-blur-[10px] bg-black/20 h-[calc(var(--vh)*100)] w-full z-10 overflow-hidden"
         >
           <img
             src="/images/Anime-Pointing.png"

@@ -143,7 +143,7 @@ export default function SongPlaylist() {
           className="w-6 h-6 cursor-pointer whitee group"
         >
           <img
-            src="assets/icons/prev.png"
+            src="/icons/prev.png"
             className="w-full h-full object-contain hover-medsos rotate-180 img-shadow-white-on-hover"
           />
         </div>
@@ -155,12 +155,12 @@ export default function SongPlaylist() {
         >
           {isPlaying ? (
             <img
-              src="assets/icons/pause.png"
+              src="/icons/pause.png"
               className="w-full h-full object-contain p-3 img-shadow-white-on-hover"
             />
           ) : (
             <img
-              src="assets/icons/play.png"
+              src="/icons/play.png"
               className="w-full h-full object-contain p-3 ml-1 img-shadow-white-on-hover"
             />
           )}
@@ -171,7 +171,7 @@ export default function SongPlaylist() {
           className="w-6 h-6 cursor-pointer whitee group"
         >
           <img
-            src="assets/icons/prev.png"
+            src="/icons/prev.png"
             className="w-full h-full object-contain img-shadow-white-on-hover"
           />
         </div>

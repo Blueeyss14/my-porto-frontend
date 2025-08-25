@@ -57,7 +57,7 @@ export const NameInput = () => {
             <div className="w-5 h-5 border-2 border-t-transparent border-white rounded-full animate-spin"></div>
           ) : (
             <img
-              src="assets/icons/paper-plane.png"
+              src="/icons/paper-plane.png"
               className="w-[60%] h-[60%] ml-1 hover-medsos"
             />
           )}

@@ -42,7 +42,7 @@ const ProjectPage = () => {
   return (
     <div className="w-full h-screen overflow-hidden font-custom">
       <MediaPlayer
-        src="assets/images/background.png"
+        src="/images/background.png"
         className="w-full h-full object-cover fixed -z-99 overflow-hidden"
       ></MediaPlayer>
       {/* ANIME BACKGROUND DIALOG */}
@@ -52,7 +52,7 @@ const ProjectPage = () => {
           className="absolute animate-dropdown-opacity backdrop-blur-[10px] bg-black/20 h-screen w-full z-10 overflow-hidden"
         >
           <img
-            src="/assets/images/Anime-Pointing.png"
+            src="/images/Anime-Pointing.png"
             className="absolute w-full h-full ml-20 [@media(max-width:400px)]:ml-25 [@media(max-width:400px)]:scale-x-130 left-5"
           />
         </div>
@@ -66,7 +66,7 @@ const ProjectPage = () => {
             className="cursor-pointer bg-black/20 rounded-full"
           >
             <img
-              src="/assets/icons/ios_arrow.png"
+              src="/icons/ios_arrow.png"
               className={`transition-all img-white w-5 h-5 m-3 ${
                 isClicked ? "rotate-270" : "rotate-90"
               }`}
@@ -164,7 +164,7 @@ const ProjectPage = () => {
                     >
                       <h1 className="mr-3 text-[0.9rem] text-homeBg2">See</h1>
                       <img
-                        src="assets/icons/next.png"
+                        src="/icons/next.png"
                         className="w-3.5 h-3.5 img-white"
                       />
                     </div>

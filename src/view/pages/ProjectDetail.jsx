@@ -73,7 +73,7 @@ const ProjectDetail = () => {
             onClick={() => navigate("/", { replace: true })}
             className="absolute bg-black/30 p-2.5 m-5 w-fit h-fit rounded-full cursor-pointer z-20"
           >
-            <img src="/assets/icons/home.png" className="w-6 h-6 img-white" />
+            <img src="/icons/home.png" className="w-6 h-6 img-white" />
           </div>
         </div>
         <div
@@ -250,7 +250,7 @@ function Images({
           onClick={closeImageModal}
         >
           <img
-            src="/assets/icons/close.png"
+            src="/icons/close.png"
             className="w-full h-full object-contain img-white"
           />
         </div>
@@ -263,7 +263,7 @@ function Images({
           }}
         >
           <img
-            src="/assets/icons/ios_arrow.png"
+            src="/icons/ios_arrow.png"
             className="w-full h-full object-contain rotate-180 img-white"
           />
         </div>
@@ -283,7 +283,7 @@ function Images({
           }}
         >
           <img
-            src="/assets/icons/ios_arrow.png"
+            src="/icons/ios_arrow.png"
             className="w-full h-full object-contain img-white"
           />
         </div>

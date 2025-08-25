@@ -32,7 +32,7 @@ const HomePage = () => {
 
   return (
     <div className="w-screen h-screen bg-cover bg-center relative overflow-hidden">
-      <MediaPlayer className="absolute inset-0 -z-999 w-full h-full" src="assets/images/background.png"/>
+      <MediaPlayer className="absolute inset-0 -z-999 w-full h-full" src="/images/background.png"/>
       <div className="absolute inset-0 -z-10 w-full h-full">
         <MediaPlayerDB />
       </div>

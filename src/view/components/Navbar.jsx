@@ -8,7 +8,7 @@ const Navbar = () => {
       <TrafficLightBtn />
       <div onClick={() => navigate("/projects")} className="flex justify-center items-center hover-medsos cursor-pointer group">
         <h1 className=" mr-2 text-shadow-white-on-hover">My Project</h1>
-        <img src="assets/icons/next.png" className="w-4 h-4 img-shadow-white-on-hover" />
+        <img src="/icons/next.png" className="w-4 h-4 img-shadow-white-on-hover" />
       </div>
     </div>
   );

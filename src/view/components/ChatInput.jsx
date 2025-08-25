@@ -38,7 +38,7 @@ const ChatInput = () => {
           roundedClass="rounded-full"
         >
           <img
-            src="assets/icons/paper-plane.png"
+            src="/icons/paper-plane.png"
             className="w-[60%] h-[60%] ml-1 hover-medsos"
           />
         </BlurBackgorund>

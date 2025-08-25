@@ -1,6 +1,6 @@
 export const bottombarData = [
-  { Icon: 'assets/icons/portfolio.png', Label: 'Home' },
-  { Icon: 'assets/icons/vinyl.png', Label: 'Song' },
+  { Icon: '/icons/portfolio.png', Label: 'Home' },
+  { Icon: '/icons/vinyl.png', Label: 'Song' },
 ];
 
 export function mapBottombarData(rawData) {

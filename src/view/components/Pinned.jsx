@@ -56,7 +56,7 @@ const Pinned = ({ pinnedProjects }) => {
                 >
                   <h1 className="mr-3 text-[0.9rem] text-homeBg2">See</h1>
                   <img
-                    src="assets/icons/next.png"
+                    src="/icons/next.png"
                     className="w-3.5 h-3.5 img-white"
                   />
                 </div>

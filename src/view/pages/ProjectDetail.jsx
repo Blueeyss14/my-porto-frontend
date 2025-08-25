@@ -22,7 +22,20 @@ const ProjectDetail = () => {
     }
   }, [projects, id]);
 
-  if (!project) return;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+      </div>
+    );
+
+  if (!project) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   function clickThumbnail() {
     setIsClicked((click) => !click);
@@ -48,13 +61,6 @@ const ProjectDetail = () => {
       prevIndex === 0 ? project.image_url.length - 1 : prevIndex - 1
     );
   }
-
-  if (loading)
-    return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    );
 
   return (
     <div className="relative font-custom bg-homeBg">

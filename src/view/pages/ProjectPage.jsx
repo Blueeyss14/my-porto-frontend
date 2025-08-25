@@ -6,7 +6,7 @@ import { useCategoryStore } from "../../state/categoryStore";
 import Pinned from "../components/Pinned";
 
 const ProjectPage = () => {
-  const { projects, fetchProject } = useProjectStore();
+  const { projects, fetchProject, loading } = useProjectStore();
   const { categories, fetchCategory } = useCategoryStore();
   const navigate = useNavigate();
   const [isClicked, setIsClicked] = useState(false);
@@ -29,6 +29,19 @@ const ProjectPage = () => {
   useEffect(() => {
     fetchCategory();
   }, [fetchCategory]);
+
+  if (loading)
+    return (
+      <div className="relative w-full h-[calc(var(--vh)*100)] flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center backdrop-blur-[60px] bg-black/20 z-10">
+          <div className="w-12 h-12 border-4 border-homeBg border-dashed rounded-full animate-spin"></div>
+        </div>
+        <MediaPlayer
+          src="/images/background.png"
+          className="w-full h-full object-cover absolute"
+        />
+      </div>
+    );
 
   const activeCategory = categories[activeIndex]?.name;
 
@@ -89,10 +102,14 @@ const ProjectPage = () => {
               key={index}
               onClick={() => clickCategory(index)}
               className={`${
-                activeIndex == index ? "bg-black/40 text-homeBg3" : "hover:bg-black/40 hover:text-homeBg3"
+                activeIndex == index
+                  ? "bg-black/40 text-homeBg3"
+                  : "hover:bg-black/40 hover:text-homeBg3"
               } w-full py-2 px-3 cursor-pointer transition-all`}
             >
-              <h1 className="line-clamp-1 text-[0.9rem]">{category.name.toUpperCase()}</h1>
+              <h1 className="line-clamp-1 text-[0.9rem]">
+                {category.name.toUpperCase()}
+              </h1>
             </div>
           ))}
         </div>

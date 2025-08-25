@@ -20,6 +20,7 @@
 :root {
   scrollbar-width: thin;
   scrollbar-color: transparent;
+  --vh: 1svh;
 }
 
 ::-webkit-scrollbar {

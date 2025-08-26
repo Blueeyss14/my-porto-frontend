@@ -166,8 +166,11 @@ const ProjectPage = () => {
                     )}
                     {/* tag */}
                     <div className="w-full flex overflow-x-auto scrollbar-hide scroll-smooth">
-                      {project.tags.slice(0, 5).map((tag) => (
-                        <div className="py-3 px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer mr-3">
+                      {project.tags.slice(0, 5).map((tag, i) => (
+                        <div
+                          key={i}
+                          className="py-3 px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer mr-3"
+                        >
                           <h2 className="leading-0">{tag}</h2>
                         </div>
                       ))}

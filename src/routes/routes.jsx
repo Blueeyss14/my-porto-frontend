@@ -1,16 +1,26 @@
-import { Routes, Route } from "react-router-dom"
-import HomePage from "../view/pages/HomePage"
-import ProjectPage from "../view/pages/ProjectPage"
-import ProjectDetail from "../view/pages/ProjectDetail"
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+const HomePage = lazy(() => import("../view/pages/HomePage"));
+const ProjectPage = lazy(() => import("../view/pages/ProjectPage"));
+const ProjectDetail = lazy(() => import("../view/pages/ProjectDetail"));
+
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center h-screen">
+    <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
+  </div>
+);
 
 const AppRoutes = () => {
   return (
-    <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/projects" element={<ProjectPage/>}/>
-        <Route path="/project-detail/:id" element={<ProjectDetail/>}/>
-    </Routes>
-  )
-}
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<ProjectPage />} />
+        <Route path="/project-detail/:id" element={<ProjectDetail />} />
+      </Routes>
+    </Suspense>
+  );
+};
 
-export default AppRoutes
+export default AppRoutes;

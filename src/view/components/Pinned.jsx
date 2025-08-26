@@ -4,7 +4,9 @@ const Pinned = ({ pinnedProjects }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <h1 className="ml-5 text-white font-semibold text-3xl mt-5 mb-2 [@media(max-width:450px)]:text-2xl">Pinned</h1>
+      <h1 className="ml-5 text-white font-semibold text-3xl mt-5 mb-2 [@media(max-width:450px)]:text-2xl">
+        Pinned
+      </h1>
       <div className="flex overflow-x-auto flex-nowrap mb-10">
         {pinnedProjects.map((project, index) => (
           <div
@@ -41,8 +43,11 @@ const Pinned = ({ pinnedProjects }) => {
                 )}
                 {/* tag */}
                 <div className="w-full flex overflow-x-auto scrollbar-hide scroll-smooth">
-                  {project.tags.slice(0, 5).map((tag) => (
-                    <div className="py-3 px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer mr-3">
+                  {project.tags.slice(0, 5).map((tag, i) => (
+                    <div
+                      key={i}
+                      className="py-3 px-2 border-2 text-homeBg2 text-[0.8rem] border-white/50 w-fit rounded-full cursor-pointer mr-3"
+                    >
                       <h2 className="leading-0">{tag}</h2>
                     </div>
                   ))}

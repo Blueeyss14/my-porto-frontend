@@ -15,24 +15,25 @@ const HomePage = () => {
   const activeIndex = useBottombarStore((s) => s.activeIndex);
   const homePageRef = useRef(null);
 
-    useEffect(() => {
+  useEffect(() => {
     if (homePageRef.current) {
-      homePageRef.current.style.position = 'fixed';
-      homePageRef.current.style.top = '0';
-      homePageRef.current.style.left = '0';
-      homePageRef.current.style.zIndex = '1000';
+      homePageRef.current.style.position = "fixed";
+      homePageRef.current.style.top = "0";
+      homePageRef.current.style.left = "0";
+      homePageRef.current.style.zIndex = "1000";
     }
 
-    return () => {
-    };
+    return () => {};
   }, []);
-
 
   const pageList = [<ProfilePage />, <SongPlaylist />];
 
   return (
     <div className="w-screen h-[calc(var(--vh)*100)] bg-cover bg-center relative overflow-hidden">
-      <MediaPlayer className="absolute inset-0 -z-999 w-full h-full" src="/images/background.png"/>
+      <MediaPlayer
+        className="absolute inset-0 -z-999 w-full h-full"
+        src="/images/background.png"
+      />
       <div className="absolute inset-0 -z-10 w-full h-full">
         <MediaPlayerDB />
       </div>
@@ -44,8 +45,9 @@ const HomePage = () => {
             className="flex justify-center items-center p-[6px] pl-2 cursor-pointer [@media(max-width:760px)]:w-40 [@media(max-width:760px)]:justify-between"
             roundedClass="rounded-[30px]"
           >
-            {medsosItems.map((item) => (
+            {medsosItems.map((item, i) => (
               <div
+                key={i}
                 onClick={() => window.open(item.site, "_blank")}
                 className="flex items-center justify-center hover-medsos group"
               >

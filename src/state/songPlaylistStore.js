@@ -172,33 +172,40 @@ const useSongPlaylistStore = create((set, get) => ({
     }
   },
 
-  togglePlayPause: async (e) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+togglePlayPause: async (e) => {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  const audio = get().audioRef;
+  if (!audio) return;
+
+  if (get().isLoading) {
+    if (get().isPlaying) {
+      audio.pause();
     }
+    return;
+  }
 
-    const audio = get().audioRef;
-    if (!audio) return;
-
-    if (get().isLoading) {
-      if (get().isPlaying) {
-        audio.pause();
+  try {
+    if (get().isPlaying) {
+      audio.pause();
+    } else {
+      if (!audio.src || audio.src === '') {
+        const currentSong = get().songs[get().currentSongIndex];
+        if (currentSong) {
+          audio.src = currentSong.song_file;
+          audio.load();
+        }
       }
-      return;
+      await audio.play();
     }
-
-    try {
-      if (get().isPlaying) {
-        audio.pause();
-      } else {
-        await audio.play();
-      }
-    } catch (error) {
-      console.log('Audio play error:', error);
-      get().setIsPlaying(false);
-    }
-  },
+  } catch (error) {
+    console.log('Audio play error:', error);
+    get().setIsPlaying(false);
+  }
+},
 
   handleSeek: (e) => {
     const audio = get().audioRef;

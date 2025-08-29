@@ -23,7 +23,13 @@ const Pinned = ({ pinnedProjects }) => {
                   />
                 )}
 
-                <div className="bg-white/40 w-full h-full absolute pointer-events-none"></div>
+                 <div className="bg-white/40 w-full h-full absolute pointer-events-none flex justify-end items-end">
+                      <div className="px-2 py-1 m-2 bg-black/25  rounded-full">
+                        <h1 className="text-[0.8rem] text-homeBg2 line-clamp-1">
+                          {project.category}
+                        </h1>
+                      </div>
+                    </div>
               </div>
               <div className="w-[100%] mt-8 flex flex-col text-homeBg">
                 <h1 className="font-semibold mb-1 line-clamp-1 text-[1.1rem]">

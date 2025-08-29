@@ -9,6 +9,7 @@ const ProjectDetail = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [hasAnyImageLoaded, setHasAnyImageLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +29,10 @@ const ProjectDetail = () => {
         <div className="w-12 h-12 border-4 border-black border-dashed rounded-full animate-spin"></div>
       </div>
     );
+
+  function handleImageLoad() {
+    if (!hasAnyImageLoaded) setHasAnyImageLoaded(true);
+  }
 
   function clickThumbnail() {
     setIsClicked((click) => !click);
@@ -97,7 +102,12 @@ const ProjectDetail = () => {
         <div className="w-full flex justify-center">
           <div className="w-[90%]">
             {project.image_url.some((url) => url) && (
-              <div className="h-[28vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide py-2">
+              <div className="h-[28vh] [@media(max-width:450px)]:h-[20vh] flex items-center overflow-x-scroll .scrollbar-hide py-2 relative">
+                {!hasAnyImageLoaded && (
+                  <div className="flex items-center justify-center h-full w-full absolute">
+                    <div className="w-8 h-8 border-2 border-black border-dashed rounded-full animate-spin"></div>
+                  </div>
+                )}
                 {project.image_url.map((img, index) => (
                   <img
                     key={index}
@@ -105,6 +115,7 @@ const ProjectDetail = () => {
                     alt={project.title}
                     className="h-full object-contain rounded-[10px] [@media(max-width:450px)]:rounded-[5px] mx-2 cursor-pointer shadow-black/10 shadow-[05px_5px_5px_black]"
                     onClick={() => clickImage(index)}
+                    onLoad={() => handleImageLoad(index)}
                   />
                 ))}
               </div>

@@ -147,7 +147,7 @@ const ProjectPage = () => {
                     )}
 
                     <div className="bg-white/40 w-full h-full absolute pointer-events-none flex justify-end items-end">
-                      <div className="px-2 py-1 m-3 bg-black/25  rounded-full">
+                      <div className="px-2 py-1 m-2 bg-black/25  rounded-full">
                         <h1 className="text-[0.8rem] text-homeBg2 line-clamp-1">
                           {project.category}
                         </h1>

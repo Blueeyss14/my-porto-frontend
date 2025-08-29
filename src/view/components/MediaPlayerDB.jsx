@@ -33,7 +33,7 @@ const MediaPlayerDB = () => {
   return (
     <>
       {mediaBackground[0] && (
-        <div className="w-full h-full pointer-events-none">
+        <div className="w-full h-full inset-0 z-0 pointer-events-none">
           {mediaBackground[0].type === "image" && (
             <img
               src={mediaBackground[0].url}
@@ -50,7 +50,7 @@ const MediaPlayerDB = () => {
               muted
               autoPlay
               loop
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover pointer-events-none"
               onError={(e) => {
                 console.error("Video load error:", mediaBackground[0].url);
                 e.target.style.display = "none";

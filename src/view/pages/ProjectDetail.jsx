@@ -115,7 +115,7 @@ const ProjectDetail = () => {
                     alt={project.title}
                     className="h-full object-contain rounded-[10px] [@media(max-width:450px)]:rounded-[5px] mx-2 cursor-pointer shadow-black/10 shadow-[05px_5px_5px_black]"
                     onClick={() => clickImage(index)}
-                    onLoad={() => handleImageLoad(index)}
+                    onLoad={handleImageLoad}
                   />
                 ))}
               </div>
@@ -128,8 +128,11 @@ const ProjectDetail = () => {
               {project.subtitle}
             </h2>
             <div className="flex flex-wrap overflow-x-auto.scrollbar-hide max-w-[50%] [@media(max-width:1100px)]:max-w-full">
-              {project.tags.map((tag) => (
-                <div className="border-2 px-3 rounded-full mr-3 my-1">
+              {project.tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="border-2 px-3 rounded-full mr-3 my-1"
+                >
                   <h1 className="leading-7 text-[0.8rem]">{tag}</h1>
                 </div>
               ))}
@@ -163,8 +166,8 @@ const ProjectDetail = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {project.contributing.map((dev) => (
-                        <tr>
+                      {project.contributing.map((dev, index) => (
+                        <tr key={index}>
                           <td className="px-2 py-2 border border-black w-1/2 whitespace-normal break-words text-[0.9rem]">
                             {dev.name}
                           </td>
@@ -191,8 +194,8 @@ const ProjectDetail = () => {
                   <h2 className="font-bold text-[2rem] mt-10 mb-3 [@media(max-width:700px)]:text-[1.5rem]">
                     Resources
                   </h2>
-                  {project.resources.map((resource) => (
-                    <ul className="list-disc pl-4 ml-4">
+                  {project.resources.map((resource, index) => (
+                    <ul key={index} className="list-disc pl-4 ml-4">
                       <li>
                         <a
                           href={resource.link}
